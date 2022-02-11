@@ -13,6 +13,7 @@ const Document = () => (
         href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Open+Sans:wght@400;600&display=swap"
         rel="stylesheet"
       />
+      <link rel="icon" href="/favicon.ico" />
     </Head>
     <body>
       <Main />

@@ -4,7 +4,10 @@ const createJestConfig = nextJest({ dir: "./" });
 
 const customJestConfig = {
   testEnvironment: "jest-environment-jsdom",
-  setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
+  setupFilesAfterEnv: [
+    "<rootDir>/jest.setup.js",
+    "<rootDir>/__mocks__/localStorage-mock.js",
+  ],
 };
 
 module.exports = createJestConfig(customJestConfig);
