@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TextField /> default rendering should match snapshot 1`] = `
+<div>
+  <div
+    class="sc-bdvvtL NBqgn"
+  >
+    <label
+      for="id"
+    >
+      <span
+        class="sc-gsDKAQ bIYnlJ"
+      >
+        field label
+      </span>
+      <input
+        class="sc-dkPtRN jOYISh"
+        id="id"
+        name="name"
+        type="text"
+        value=""
+      />
+    </label>
+  </div>
+</div>
+`;

@@ -1,6 +1,8 @@
 import type { AppProps } from "next/app";
-import "normalize.css";
 import { ThemeProvider } from "styled-components";
+
+import "normalize.css";
+import "boxicons/css/boxicons.css";
 
 import Layout from "../components/Layout";
 import GlobalStyle from "../styles/globalStyle";

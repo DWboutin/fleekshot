@@ -3,7 +3,7 @@ export const colors = {
   black: "#333333",
   paleGrey: "#fafafa",
   grey: "#dbdbdb",
-  grey2: "#aba8a8",
+  grey2: "#999999",
 };
 
 export interface ThemeContainer {
@@ -23,6 +23,12 @@ export interface Theme {
   };
   forms: {
     container: {
+      bg: string;
+      border: string;
+      borderRadius: string;
+      fieldMarginBottom: string;
+    };
+    textField: {
       border: string;
       borderFocus: string;
       bg: string;
@@ -57,6 +63,12 @@ export const theme: Theme = {
   },
   forms: {
     container: {
+      bg: colors.white,
+      border: colors.grey,
+      borderRadius: "3px",
+      fieldMarginBottom: "10px",
+    },
+    textField: {
       border: colors.grey,
       borderFocus: colors.grey2,
       bg: colors.paleGrey,
@@ -72,7 +84,7 @@ export const theme: Theme = {
     },
     signup: {
       width: "350px",
-      padding: "0 20px",
+      padding: "20px",
     },
   },
 };
