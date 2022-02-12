@@ -2,7 +2,7 @@ import { useState } from "react";
 import { TextFieldTypes } from "../components/TextField";
 
 export interface TextFieldSelectors {
-  value: string;
+  fieldValue: string;
   fieldType: TextFieldTypes;
   isFocused: boolean;
 }
@@ -24,7 +24,7 @@ export function useTextField(
   defaultValue?: string
 ): TextFieldHook {
   const [isFocused, setIsFocused] = useState(false);
-  const [value, setValue] = useState(defaultValue || "");
+  const [fieldValue, setFieldValue] = useState(defaultValue || "");
   const [fieldType, setFieldType] = useState<TextFieldTypes>(type);
 
   const handleOnFocus = () => {
@@ -36,7 +36,7 @@ export function useTextField(
   };
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
+    setFieldValue(e.target.value);
   };
 
   const handlePasswordToggle = () => {
@@ -50,7 +50,7 @@ export function useTextField(
   };
 
   return {
-    selectors: { value, fieldType, isFocused },
+    selectors: { fieldValue, fieldType, isFocused },
     actions: {
       handleOnFocus,
       handleOnBlur,

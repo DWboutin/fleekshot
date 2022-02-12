@@ -3,6 +3,9 @@ import { ThemeContainer } from "./styles";
 import { baseFontSize, fonts } from "./typography";
 
 const GlobalStyle = createGlobalStyle`
+  * {
+    box-sizing: border-box;
+  }
   html {
     font-size: ${baseFontSize}px;
     font-family: ${fonts.text};

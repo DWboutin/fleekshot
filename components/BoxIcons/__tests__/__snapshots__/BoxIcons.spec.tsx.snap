@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<BoxIcons /> default rendering should match snapshot 1`] = `
+<div>
+  <i
+    class="bx bx-bitcoin bx-xs"
+  />
+</div>
+`;
+
+exports[`<BoxIcons /> with all props provided should match snapshot 1`] = `
+<div>
+  <i
+    class="bx bxs-bitcoin bx-lg bx-rotate-90 bx-flip-vertical bx-fw bx-border-circle bx-tada-hover bx-pull-right className"
+  />
+</div>
+`;

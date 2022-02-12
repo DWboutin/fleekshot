@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`intl SignupForm en should match snapshot 1`] = `
+Object {
+  "signupForm": Object {
+    "errors": Object {
+      "isRequired": "Is required",
+      "mismatch": "Password mismatch",
+      "notStrongEnough": "Not strong enough",
+      "tooLong": "Too long",
+      "tooShort": "Too short",
+    },
+    "input": Object {
+      "confirmPassword": Object {
+        "label": "Confirm password",
+      },
+      "name": Object {
+        "label": "Complete name",
+      },
+      "password": Object {
+        "label": "Password",
+      },
+      "username": Object {
+        "label": "Username",
+      },
+    },
+  },
+}
+`;

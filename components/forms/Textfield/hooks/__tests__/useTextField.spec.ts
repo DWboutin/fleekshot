@@ -26,7 +26,7 @@ describe("useTextField", () => {
       });
 
       it("should have an empty value", () => {
-        expect(result.result.current.selectors.value).toBe("");
+        expect(result.result.current.selectors.fieldValue).toBe("");
       });
 
       it(`should fieldType be ${TYPE}`, () => {
@@ -46,7 +46,7 @@ describe("useTextField", () => {
       });
 
       it(`should value be equal to "${DEFAULT_VALUE}"`, () => {
-        expect(result.result.current.selectors.value).toBe(DEFAULT_VALUE);
+        expect(result.result.current.selectors.fieldValue).toBe(DEFAULT_VALUE);
       });
     });
 
@@ -84,7 +84,7 @@ describe("useTextField", () => {
       });
 
       it(`should value be "${NEW_VALUE}"`, () => {
-        expect(result.result.current.selectors.value).toBe(NEW_VALUE);
+        expect(result.result.current.selectors.fieldValue).toBe(NEW_VALUE);
       });
     });
 
@@ -120,7 +120,7 @@ describe("useTextField", () => {
       });
 
       it("should have an empty value", () => {
-        expect(result.result.current.selectors.value).toBe("");
+        expect(result.result.current.selectors.fieldValue).toBe("");
       });
 
       it(`should fieldType be ${TYPE}`, () => {
@@ -140,7 +140,7 @@ describe("useTextField", () => {
       });
 
       it(`should value be equal to "${DEFAULT_VALUE}"`, () => {
-        expect(result.result.current.selectors.value).toBe(DEFAULT_VALUE);
+        expect(result.result.current.selectors.fieldValue).toBe(DEFAULT_VALUE);
       });
     });
 
@@ -178,7 +178,7 @@ describe("useTextField", () => {
       });
 
       it(`should value be "${NEW_VALUE}"`, () => {
-        expect(result.result.current.selectors.value).toBe(NEW_VALUE);
+        expect(result.result.current.selectors.fieldValue).toBe(NEW_VALUE);
       });
     });
 
@@ -214,7 +214,7 @@ describe("useTextField", () => {
       });
 
       it("should have an empty value", () => {
-        expect(result.result.current.selectors.value).toBe("");
+        expect(result.result.current.selectors.fieldValue).toBe("");
       });
 
       it(`should fieldType be ${TYPE}`, () => {
@@ -234,7 +234,7 @@ describe("useTextField", () => {
       });
 
       it(`should value be equal to "${DEFAULT_VALUE}"`, () => {
-        expect(result.result.current.selectors.value).toBe(DEFAULT_VALUE);
+        expect(result.result.current.selectors.fieldValue).toBe(DEFAULT_VALUE);
       });
     });
 
@@ -272,7 +272,7 @@ describe("useTextField", () => {
       });
 
       it(`should value be "${NEW_VALUE}"`, () => {
-        expect(result.result.current.selectors.value).toBe(NEW_VALUE);
+        expect(result.result.current.selectors.fieldValue).toBe(NEW_VALUE);
       });
     });
 

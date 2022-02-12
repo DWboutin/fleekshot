@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`intl en should match snapshot 1`] = `
+Object {
+  "hello": "Hello",
+  "signupForm_errors_isRequired": "Is required",
+  "signupForm_errors_mismatch": "Password mismatch",
+  "signupForm_errors_notStrongEnough": "Not strong enough",
+  "signupForm_errors_tooLong": "Too long",
+  "signupForm_errors_tooShort": "Too short",
+  "signupForm_input_confirmPassword_label": "Confirm password",
+  "signupForm_input_name_label": "Complete name",
+  "signupForm_input_password_label": "Password",
+  "signupForm_input_username_label": "Username",
+}
+`;

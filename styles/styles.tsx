@@ -4,6 +4,10 @@ export const colors = {
   paleGrey: "#fafafa",
   grey: "#dbdbdb",
   grey2: "#999999",
+  red: "#f6655a",
+  lightBlue: "#44b5ff",
+  blue: "#0095f6",
+  blue2: "#0b7ec9",
 };
 
 export interface ThemeContainer {
@@ -22,6 +26,7 @@ export interface Theme {
     bg: string;
   };
   forms: {
+    errorColor: string;
     container: {
       bg: string;
       border: string;
@@ -33,8 +38,14 @@ export interface Theme {
       borderFocus: string;
       bg: string;
       borderRadius: string;
-      padding: string;
       label: string;
+    };
+    button: {
+      bg: string;
+      borderRadius: string;
+      color: string;
+      hoverBg: string;
+      activeBg: string;
     };
   };
   layout: {
@@ -62,6 +73,7 @@ export const theme: Theme = {
     bg: colors.paleGrey,
   },
   forms: {
+    errorColor: colors.red,
     container: {
       bg: colors.white,
       border: colors.grey,
@@ -73,8 +85,14 @@ export const theme: Theme = {
       borderFocus: colors.grey2,
       bg: colors.paleGrey,
       borderRadius: "3px",
-      padding: "9px 8px 7px",
       label: colors.grey2,
+    },
+    button: {
+      bg: colors.blue,
+      hoverBg: colors.lightBlue,
+      activeBg: colors.blue2,
+      borderRadius: "3px",
+      color: colors.white,
     },
   },
   layout: {

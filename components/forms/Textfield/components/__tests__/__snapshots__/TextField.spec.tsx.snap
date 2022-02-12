@@ -3,23 +3,89 @@
 exports[`<TextField /> default rendering should match snapshot 1`] = `
 <div>
   <div
-    class="sc-bdvvtL NBqgn"
+    class="sc-bdvvtL hpABpB"
   >
     <label
       for="id"
     >
       <span
-        class="sc-gsDKAQ bIYnlJ"
+        class="sc-gsDKAQ Nzkep"
       >
         field label
       </span>
       <input
-        class="sc-dkPtRN jOYISh"
+        class="sc-dkPtRN wkokf"
         id="id"
         name="name"
         type="text"
         value=""
       />
+    </label>
+  </div>
+</div>
+`;
+
+exports[`<TextField /> type="password" should match snapshot 1`] = `
+<div>
+  <div
+    class="sc-bdvvtL hpABpB"
+  >
+    <label
+      for="id"
+    >
+      <span
+        class="sc-gsDKAQ Nzkep"
+      >
+        field label
+      </span>
+      <input
+        class="sc-dkPtRN wkokf"
+        id="id"
+        name="name"
+        type="password"
+        value=""
+      />
+      <button
+        class="sc-hKwDye fihsgk"
+        type="button"
+      >
+        <i
+          class="bx bx-hide bx-sm"
+        />
+      </button>
+    </label>
+  </div>
+</div>
+`;
+
+exports[`<TextField /> with error should match snapshot 1`] = `
+<div>
+  <div
+    class="sc-bdvvtL hpABpB"
+  >
+    <label
+      for="id"
+    >
+      <span
+        class="sc-gsDKAQ Nzkep"
+      >
+        field label
+      </span>
+      <input
+        class="sc-dkPtRN wkokf"
+        id="id"
+        name="name"
+        type="text"
+        value=""
+      />
+      <span
+        class="sc-eCImPb jjtWCt"
+        title="error message"
+      >
+        <i
+          class="bx bx-x-circle bx-sm"
+        />
+      </span>
     </label>
   </div>
 </div>

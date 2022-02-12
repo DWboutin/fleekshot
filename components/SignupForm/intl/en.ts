@@ -12,6 +12,16 @@ const en: SignupFormIntl = {
       password: {
         label: "Password",
       },
+      confirmPassword: {
+        label: "Confirm password",
+      },
+    },
+    errors: {
+      tooShort: "Too short",
+      tooLong: "Too long",
+      isRequired: "Is required",
+      notStrongEnough: "Not strong enough",
+      mismatch: "Password mismatch",
     },
   },
 };

@@ -4,14 +4,21 @@ import {
   RenderResult,
   screen,
 } from "@testing-library/react";
-import TestWrapper from "../../../../../utils/testWrapper";
+import TestWrapper from "../../../../../utils/TestWrapper";
 
 import TextField, { Props } from "../TextField";
 
 describe("<TextField />", () => {
   let renderResult: RenderResult;
 
-  const renderTextField = ({ id, name, type, label, defaultValue }: Props) => {
+  const renderTextField = ({
+    id,
+    name,
+    type,
+    label,
+    defaultValue,
+    error,
+  }: Props) => {
     renderResult = render(
       <TestWrapper>
         <TextField
@@ -20,6 +27,7 @@ describe("<TextField />", () => {
           type={type}
           label={label}
           defaultValue={defaultValue}
+          error={error}
         />
       </TestWrapper>
     );
@@ -31,8 +39,13 @@ describe("<TextField />", () => {
     const TYPE = "text";
     const LABEL = "field label";
 
-    beforeAll(() => {
-      renderTextField({ id: ID, name: NAME, type: TYPE, label: LABEL });
+    beforeEach(() => {
+      renderTextField({
+        id: ID,
+        name: NAME,
+        type: TYPE,
+        label: LABEL,
+      });
     });
 
     it("should match snapshot", () => {
@@ -55,14 +68,6 @@ describe("<TextField />", () => {
       expect(input?.getAttribute("name")).toBe(NAME);
       expect(input?.getAttribute("type")).toBe(TYPE);
     });
-
-    it("should hide label when typing values", () => {
-      fireEvent.change(screen.getByRole("textbox"), {
-        target: { value: "hello" },
-      });
-
-      expect(screen.queryByText(LABEL)).not.toBeInTheDocument();
-    });
   });
 
   describe('type="password"', () => {
@@ -71,8 +76,13 @@ describe("<TextField />", () => {
     const TYPE = "password";
     const LABEL = "field label";
 
-    beforeAll(() => {
-      renderTextField({ id: ID, name: NAME, type: TYPE, label: LABEL });
+    beforeEach(() => {
+      renderTextField({
+        id: ID,
+        name: NAME,
+        type: TYPE,
+        label: LABEL,
+      });
     });
 
     it("should match snapshot", () => {
@@ -90,18 +100,10 @@ describe("<TextField />", () => {
     it("should contain the input with good attributes", () => {
       const input = renderResult.container.querySelector("input");
 
-      expect(screen.getByRole("textbox")).toBeInTheDocument();
+      expect(input).toBeInTheDocument();
       expect(input?.getAttribute("id")).toBe(ID);
       expect(input?.getAttribute("name")).toBe(NAME);
       expect(input?.getAttribute("type")).toBe(TYPE);
-    });
-
-    it("should hide label when typing values", () => {
-      fireEvent.change(screen.getByRole("textbox"), {
-        target: { value: "hello" },
-      });
-
-      expect(screen.queryByText(LABEL)).not.toBeInTheDocument();
     });
 
     it("should toggle input type crrectly when clicking on toggle button", () => {
@@ -118,4 +120,39 @@ describe("<TextField />", () => {
       expect(input?.getAttribute("type")).toBe(TYPE);
     });
   });
+
+  describe("with error", () => {
+    const ID = "id";
+    const NAME = "name";
+    const TYPE = "text";
+    const LABEL = "field label";
+    const ERROR = "error message";
+
+    beforeEach(() => {
+      renderTextField({
+        id: ID,
+        name: NAME,
+        type: TYPE,
+        label: LABEL,
+        error: ERROR,
+      });
+    });
+
+    it("should match snapshot", () => {
+      expect(renderResult.container).toMatchSnapshot();
+    });
+
+    it(`should contain the error icon`, () => {
+      const errorIconContainer =
+        renderResult.container.querySelector("span:last-child");
+      const errorIcon =
+        renderResult.container.querySelector("span:last-child i");
+
+      expect(errorIconContainer).toBeInTheDocument();
+      expect(errorIcon).toBeInTheDocument();
+      expect(errorIcon?.classList).toContain("bx-x-circle");
+    });
+  });
+
+  describe("controlled", () => {});
 });
