@@ -37,6 +37,7 @@ export const Container = styled.div<ContainerProps>`
     & > span:first-child {
       transform-origin: left;
       transition: transform ease-out 0.1s, -webkit-transform ease-out 0.1s;
+      z-index: 3;
 
       ${({ isFocused, hasValue }: ContainerProps) =>
         (isFocused || hasValue) &&

@@ -1,10 +1,10 @@
 import * as Yup from "yup";
-import { SignupFormIntlId } from "../intl/type.d";
+import { SignupFormIntlId } from "../components/SignupForm/intl/type";
 
 const passwordRegex =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$^+=!*()@%&[\]{}\-_|:;~"'`<>])?.{8,}$/;
 
-const signupFormSchema = Yup.object().shape({
+const userCreationSchema = Yup.object().shape({
   name: Yup.string()
     .min(2, SignupFormIntlId.signupForm_errors_tooShort)
     .max(50, SignupFormIntlId.signupForm_errors_tooLong)
@@ -26,4 +26,4 @@ const signupFormSchema = Yup.object().shape({
     .required(SignupFormIntlId.signupForm_errors_isRequired),
 });
 
-export default signupFormSchema;
+export default userCreationSchema;

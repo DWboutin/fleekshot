@@ -7,7 +7,8 @@ import {
 } from "react-intl";
 import { createContext, useContext, useMemo } from "react";
 import useIntlManager from "./IntlManager/hooks/useIntlManager";
-import messages, { IntlLocale } from "./IntlManager/intl/messages";
+import messages from "./IntlManager/intl/messages";
+import { IntlLocale } from "./IntlManager/intl/types.d";
 
 interface IntlContextProps {
   locale: string;

@@ -1,8 +1,22 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import { useEffect, useState } from "react";
 import { FormattedMessage } from "react-intl";
 
 const Home: NextPage = () => {
+  const [users, setUsers] = useState([]);
+  const fetchUser = async () => {
+    fetch(`http://localhost:3000/api/user/read`)
+      .then((response) => response.json())
+      .then((data) => {
+        setUsers(data);
+      });
+  };
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
+
   return (
     <>
       <Head>
@@ -12,6 +26,7 @@ const Home: NextPage = () => {
       </Head>
       <div>
         <FormattedMessage id="hello" />
+        {JSON.stringify(users, null, 2)}
       </div>
     </>
   );

@@ -8,9 +8,10 @@ import { ThemeContainer } from "../styles/styles";
 import TextField, {
   Container as TextFieldContainer,
 } from "./forms/Textfield/components/TextField";
-import signupFormSchema from "./SignupForm/validation/signupFormSchema";
-import { SignupFormIntlId } from "./SignupForm/intl/type.d";
+import userCreationSchema from "../validations/userCreationSchema";
+import { SignupFormIntlId } from "./SignupForm/intl/type";
 import Button from "./forms/Button/Button";
+import { User } from "../server/user/models/UserModel";
 
 interface ContainerProps {}
 
@@ -35,6 +36,18 @@ interface Props {}
 
 const SignupForm: React.VoidFunctionComponent<Props> = ({}) => {
   const intl = useIntl();
+  const saveUser = async (user: User) => {
+    const result = await fetch(`http://localhost:3000/api/user/create`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ user }),
+    });
+
+    return result;
+  };
   const { values, touched, errors, handleChange, handleSubmit } = useFormik({
     initialValues: {
       name: "",
@@ -42,9 +55,9 @@ const SignupForm: React.VoidFunctionComponent<Props> = ({}) => {
       password: "",
       confirmPassword: "",
     },
-    validationSchema: signupFormSchema,
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+    validationSchema: userCreationSchema,
+    onSubmit: async (values) => {
+      const userRequest = await saveUser(values);
     },
   });
 
