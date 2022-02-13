@@ -1,5 +1,5 @@
-export interface SignupFormIntl {
-  signupForm: {
+export interface SignUpFormIntl {
+  signUpForm: {
     input: {
       name: {
         label: string;
@@ -14,6 +14,9 @@ export interface SignupFormIntl {
         label: string;
       };
     };
+    button: {
+      submit: string;
+    };
     errors: {
       tooShort: string;
       tooLong: string;
@@ -24,17 +27,18 @@ export interface SignupFormIntl {
   };
 }
 
-export enum SignupFormIntlId {
-  signupForm_input_name_label = "signupForm_input_name_label",
-  signupForm_input_username_label = "signupForm_input_username_label",
-  signupForm_input_password_label = "signupForm_input_password_label",
-  signupForm_input_confirmPassword_label = "signupForm_input_confirmPassword_label",
-  signupForm_errors_tooShort = "signupForm_errors_tooShort",
-  signupForm_errors_tooLong = "signupForm_errors_tooLong",
-  signupForm_errors_isRequired = "signupForm_errors_isRequired",
-  signupForm_errors_notStrongEnough = "signupForm_errors_notStrongEnough",
-  signupForm_errors_mismatch = "signupForm_errors_mismatch",
+export enum SignUpFormIntlId {
+  signUpForm_input_name_label = "signUpForm_input_name_label",
+  signUpForm_input_username_label = "signUpForm_input_username_label",
+  signUpForm_input_password_label = "signUpForm_input_password_label",
+  signUpForm_input_confirmPassword_label = "signUpForm_input_confirmPassword_label",
+  signUpForm_button_submit = "signUpForm_button_submit",
+  signUpForm_errors_tooShort = "signUpForm_errors_tooShort",
+  signUpForm_errors_tooLong = "signUpForm_errors_tooLong",
+  signUpForm_errors_isRequired = "signUpForm_errors_isRequired",
+  signUpForm_errors_notStrongEnough = "signUpForm_errors_notStrongEnough",
+  signUpForm_errors_mismatch = "signUpForm_errors_mismatch",
 }
 
-export interface SignupFormIntlFlatten
-  extends Record<SignupFormIntlId, string> {}
+export interface SignUpFormIntlFlatten
+  extends Record<SignUpFormIntlId, string> {}

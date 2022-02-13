@@ -1,6 +1,6 @@
 import { ObjectSchema } from "yup";
 import DataValidator from "../../../validator/DataValidator";
-import { UserSignupData } from "../../dto/UserDTO";
+import { UserSignUpData } from "../../dto/UserDTO";
 import UserFactoryImpl from "../../factories/UserFactory";
 import UserModel, { User } from "../../models/UserModel";
 import UserController from "../UserController";
@@ -15,7 +15,7 @@ jest.mock("../../models/UserModel", () => {
 
 describe("UserController", () => {
   describe("create", () => {
-    const RAW_USER: UserSignupData = {
+    const RAW_USER: UserSignUpData = {
       name: "NAME",
       username: "USERNAME",
       password: "PASSWORD",
@@ -31,7 +31,7 @@ describe("UserController", () => {
       validate: (value: any) => validateMock(value),
     } as any);
     const userFactory = {
-      createFromSignup: jest.fn().mockReturnValue(USER),
+      createFromSignUp: jest.fn().mockReturnValue(USER),
     };
     const userController = new UserController(
       dataValidator as any,
@@ -43,7 +43,7 @@ describe("UserController", () => {
       const value = await userController.create(RAW_USER);
 
       expect(validateMock).toHaveBeenCalledWith(RAW_USER);
-      expect(userFactory.createFromSignup).toHaveBeenCalledWith(RAW_USER);
+      expect(userFactory.createFromSignUp).toHaveBeenCalledWith(RAW_USER);
       expect(saveMock).toHaveBeenCalled();
       expect(value).toBe(USER);
     });

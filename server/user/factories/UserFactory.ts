@@ -1,15 +1,15 @@
-import { UserSignupData } from "../dto/UserDTO";
+import { UserSignUpData } from "../dto/UserDTO";
 import { User } from "../models/UserModel";
 import { EncryptionService } from "../../services/EncryptionService";
 
 export interface UserFactory {
-  createFromSignup(userRawData: UserSignupData): User;
+  createFromSignUp(userRawData: UserSignUpData): User;
 }
 
 class UserFactoryImpl implements UserFactory {
   constructor(private encryptionServive: EncryptionService) {}
 
-  createFromSignup(userRawData: UserSignupData): User {
+  createFromSignUp(userRawData: UserSignUpData): User {
     return {
       name: userRawData.name,
       username: userRawData.username,

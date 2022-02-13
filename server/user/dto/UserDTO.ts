@@ -1,5 +1,5 @@
 import { User } from "../models/UserModel";
 
-export interface UserSignupData extends User {
+export interface UserSignUpData extends User {
   confirmPassword: string;
 }

@@ -3,14 +3,14 @@
 exports[`intl fr should match snapshot 1`] = `
 Object {
   "hello": "Bonjour",
-  "signupForm_errors_isRequired": "Est requis",
-  "signupForm_errors_mismatch": "Ne correspond pas",
-  "signupForm_errors_notStrongEnough": "Trop faible",
-  "signupForm_errors_tooLong": "Trop long",
-  "signupForm_errors_tooShort": "Trop court",
-  "signupForm_input_confirmPassword_label": "Confirmation du mot de passe",
-  "signupForm_input_name_label": "Nom complet",
-  "signupForm_input_password_label": "Mot de passe",
-  "signupForm_input_username_label": "Nom D'utilisateur",
+  "signUpForm_errors_isRequired": "Est requis",
+  "signUpForm_errors_mismatch": "Ne correspond pas",
+  "signUpForm_errors_notStrongEnough": "Trop faible",
+  "signUpForm_errors_tooLong": "Trop long",
+  "signUpForm_errors_tooShort": "Trop court",
+  "signUpForm_input_confirmPassword_label": "Confirmation du mot de passe",
+  "signUpForm_input_name_label": "Nom complet",
+  "signUpForm_input_password_label": "Mot de passe",
+  "signUpForm_input_username_label": "Nom D'utilisateur",
 }
 `;

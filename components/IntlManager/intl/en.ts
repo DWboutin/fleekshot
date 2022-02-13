@@ -1,11 +1,13 @@
 import flat from "flat";
 
-import signupForm from "../../SignupForm/intl/en";
-import { IntlMessages } from "./types.d";
+import signUpForm from "../../SignUpForm/intl/en";
+import signinForm from "../../SignInForm/intl/en";
+import { IntlMessages } from "./types";
 
 const en = {
   hello: "Hello",
-  ...signupForm,
+  ...signUpForm,
+  ...signinForm,
 };
 
 export default flat(en, { delimiter: "_" }) as IntlMessages;

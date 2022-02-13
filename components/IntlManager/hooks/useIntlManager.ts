@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import storageService from "../../../services/storageService";
-import { IntlLocale } from "../intl/types.d";
+import { IntlLocale } from "../intl/types";
 
 export interface IntlManagerSelectors {
   locale: IntlLocale;

@@ -14,7 +14,7 @@ const Content = styled.div`
   justify-content: space-around;
 `;
 
-const LayoutSignup: NextPage = ({ children }) => {
+const LayoutSignForm: NextPage = ({ children }) => {
   return (
     <Container>
       <Content>{children}</Content>
@@ -22,4 +22,4 @@ const LayoutSignup: NextPage = ({ children }) => {
   );
 };
 
-export default LayoutSignup;
+export default LayoutSignForm;

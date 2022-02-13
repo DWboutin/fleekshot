@@ -1,19 +1,13 @@
-import { SignUpFormIntl } from "./type";
+import { SignInFormIntl } from "./type";
 
-const fr: SignUpFormIntl = {
-  signUpForm: {
+const fr: SignInFormIntl = {
+  signInForm: {
     input: {
-      name: {
-        label: "Nom complet",
-      },
       username: {
         label: "Nom D'utilisateur",
       },
       password: {
         label: "Mot de passe",
-      },
-      confirmPassword: {
-        label: "Confirmation du mot de passe",
       },
     },
     button: {

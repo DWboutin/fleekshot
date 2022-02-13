@@ -10,7 +10,7 @@ import TextField, {
 import userCreationSchema from "../validations/userCreationSchema";
 import { SignUpFormIntlId } from "./SignUpForm/intl/type";
 import Button from "./forms/Button/Button";
-import { User } from "../server/user/models/UserModel";
+import { SignInFormIntlId } from "./SignInForm/intl/type";
 
 interface ContainerProps {}
 
@@ -33,48 +33,21 @@ const Form = styled.form<ContainerProps>`
 
 interface Props {}
 
-const SignUpForm: React.VoidFunctionComponent<Props> = ({}) => {
+const SignInForm: React.VoidFunctionComponent<Props> = ({}) => {
   const intl = useIntl();
-  const saveUser = async (user: User) => {
-    const result = await fetch(`http://localhost:3000/api/user/`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ user }),
-    });
-
-    return result;
-  };
   const { values, touched, errors, handleChange, handleSubmit } = useFormik({
     initialValues: {
-      name: "",
       username: "",
       password: "",
-      confirmPassword: "",
     },
     validationSchema: userCreationSchema,
     onSubmit: async (values) => {
-      const userRequest = await saveUser(values);
+      console.log(values);
     },
   });
 
-  console.log({ errors });
-
   return (
     <Form onSubmit={handleSubmit}>
-      <TextField
-        id="name"
-        name="name"
-        type="text"
-        value={values.name}
-        onChange={handleChange}
-        label={intl.formatMessage({
-          id: SignUpFormIntlId.signUpForm_input_name_label,
-        })}
-        error={touched.name && errors.name}
-      />
       <TextField
         id="username"
         name="username"
@@ -82,7 +55,7 @@ const SignUpForm: React.VoidFunctionComponent<Props> = ({}) => {
         value={values.username}
         onChange={handleChange}
         label={intl.formatMessage({
-          id: SignUpFormIntlId.signUpForm_input_username_label,
+          id: SignInFormIntlId.signInForm_input_username_label,
         })}
         error={touched.username && errors.username}
       />
@@ -93,26 +66,13 @@ const SignUpForm: React.VoidFunctionComponent<Props> = ({}) => {
         value={values.password}
         onChange={handleChange}
         label={intl.formatMessage({
-          id: SignUpFormIntlId.signUpForm_input_password_label,
+          id: SignInFormIntlId.signInForm_input_password_label,
         })}
         error={touched.password && errors.password}
       />
-      <TextField
-        id="confirmPassword"
-        name="confirmPassword"
-        type="password"
-        value={values.confirmPassword}
-        onChange={handleChange}
-        label={intl.formatMessage({
-          id: SignUpFormIntlId.signUpForm_input_confirmPassword_label,
-        })}
-        error={touched.confirmPassword && errors.confirmPassword}
-      />
-      <Button type="submit">
-        {intl.formatMessage({ id: SignUpFormIntlId.signUpForm_button_submit })}
-      </Button>
+      <Button type="submit">Submit</Button>
     </Form>
   );
 };
 
-export default SignUpForm;
+export default SignInForm;

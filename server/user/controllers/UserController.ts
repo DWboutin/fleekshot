@@ -1,19 +1,19 @@
 import { Request, Response, NextFunction } from "express";
 import DataValidator from "../../validator/DataValidator";
-import { UserSignupData } from "../dto/UserDTO";
+import { UserSignUpData } from "../dto/UserDTO";
 import { UserFactory } from "../factories/UserFactory";
 
 import UserModel from "../models/UserModel";
 
 class UserController {
   constructor(
-    private validator: DataValidator<UserSignupData>,
+    private validator: DataValidator<UserSignUpData>,
     private userFactory: UserFactory
   ) {}
 
-  public async create(userSignupData: UserSignupData) {
-    const validRawData = await this.validator?.validate(userSignupData);
-    const userData = this.userFactory.createFromSignup(validRawData);
+  public async create(userSignUpData: UserSignUpData) {
+    const validRawData = await this.validator?.validate(userSignUpData);
+    const userData = this.userFactory.createFromSignUp(validRawData);
     const user = new UserModel(userData);
 
     const result = await user.save();
