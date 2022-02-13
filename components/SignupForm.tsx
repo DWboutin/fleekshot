@@ -37,7 +37,7 @@ interface Props {}
 const SignupForm: React.VoidFunctionComponent<Props> = ({}) => {
   const intl = useIntl();
   const saveUser = async (user: User) => {
-    const result = await fetch(`http://localhost:3000/api/user/create`, {
+    const result = await fetch(`http://localhost:3000/api/user/`, {
       method: "POST",
       headers: {
         Accept: "application/json",

@@ -3,7 +3,7 @@
 exports[`<TextField /> default rendering should match snapshot 1`] = `
 <div>
   <div
-    class="sc-bdvvtL hpABpB"
+    class="sc-bdvvtL HCHGw"
   >
     <label
       for="id"
@@ -28,7 +28,7 @@ exports[`<TextField /> default rendering should match snapshot 1`] = `
 exports[`<TextField /> type="password" should match snapshot 1`] = `
 <div>
   <div
-    class="sc-bdvvtL hpABpB"
+    class="sc-bdvvtL HCHGw"
   >
     <label
       for="id"
@@ -61,7 +61,7 @@ exports[`<TextField /> type="password" should match snapshot 1`] = `
 exports[`<TextField /> with error should match snapshot 1`] = `
 <div>
   <div
-    class="sc-bdvvtL hpABpB"
+    class="sc-bdvvtL HCHGw"
   >
     <label
       for="id"

@@ -1,41 +1,30 @@
 import { Request, Response, NextFunction } from "express";
 import DataValidator from "../../validator/DataValidator";
+import { UserSignupData } from "../dto/UserDTO";
+import { UserFactory } from "../factories/UserFactory";
 
 import UserModel from "../models/UserModel";
 
 class UserController {
-  private validator: DataValidator;
+  constructor(
+    private validator: DataValidator<UserSignupData>,
+    private userFactory: UserFactory
+  ) {}
 
-  constructor(validator: DataValidator) {
-    this.validator = validator;
+  public async create(userSignupData: UserSignupData) {
+    const validRawData = await this.validator?.validate(userSignupData);
+    const userData = this.userFactory.createFromSignup(validRawData);
+    const user = new UserModel(userData);
+
+    const result = await user.save();
+
+    return result;
   }
 
-  public async create(req: Request, res: Response, next: NextFunction) {
-    try {
-      const data = req.body.user;
+  public async read() {
+    const result = await UserModel.find({});
 
-      const validaData = await this.validator?.validate(data);
-
-      const user = new UserModel(validaData);
-
-      const result = await user.save();
-
-      res.status(200).json(result);
-    } catch (err) {
-      console.error(err);
-      next(err);
-    }
-  }
-
-  public async read(req: Request, res: Response, next: NextFunction) {
-    try {
-      const result = await UserModel.find({});
-
-      res.status(200).json(result);
-    } catch (err) {
-      console.error(err);
-      next(err);
-    }
+    return result;
   }
 }
 
