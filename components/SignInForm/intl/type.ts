@@ -17,6 +17,7 @@ export interface SignInFormIntl {
       isRequired: string;
       notStrongEnough: string;
       mismatch: string;
+      noUser: string;
     };
   };
 }
@@ -30,6 +31,7 @@ export enum SignInFormIntlId {
   signInForm_errors_isRequired = "signInForm_errors_isRequired",
   signInForm_errors_notStrongEnough = "signInForm_errors_notStrongEnough",
   signInForm_errors_mismatch = "signInForm_errors_mismatch",
+  signInForm_errors_noUser = "signInForm_errors_noUser",
 }
 
 export interface SignInFormIntlFlatten

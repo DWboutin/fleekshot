@@ -6,6 +6,7 @@ const nextConfig = {
   env: {
     DB_USER: process.env.DB_USER,
     DB_PASS: process.env.DB_PASS,
+    API_URL: process.env.API_URL,
   },
 };
 

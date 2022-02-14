@@ -11,6 +11,7 @@ import userCreationSchema from "../validations/userCreationSchema";
 import { SignUpFormIntlId } from "./SignUpForm/intl/type";
 import Button from "./forms/Button/Button";
 import { User } from "../server/user/models/UserModel";
+import HttpRequestService from "../services/HttpRequestService";
 
 interface ContainerProps {}
 
@@ -36,14 +37,7 @@ interface Props {}
 const SignUpForm: React.VoidFunctionComponent<Props> = ({}) => {
   const intl = useIntl();
   const saveUser = async (user: User) => {
-    const result = await fetch(`http://localhost:3000/api/user/`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ user }),
-    });
+    const result = await HttpRequestService.post("/user/", { user });
 
     return result;
   };
@@ -59,8 +53,6 @@ const SignUpForm: React.VoidFunctionComponent<Props> = ({}) => {
       const userRequest = await saveUser(values);
     },
   });
-
-  console.log({ errors });
 
   return (
     <Form onSubmit={handleSubmit}>

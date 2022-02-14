@@ -1,5 +1,5 @@
-import { SignInFormIntlFlatten } from "../../SignInForm/intl/type";
-import { SignUpFormIntlFlatten } from "../../SignUpForm/intl/type";
+import { SignInFormIntlFlatten } from "../../intl/type";
+import { SignUpFormIntlFlatten } from "../../SignIn/SignUpForm/intl/type";
 
 export enum IntlLocale {
   en = "en",

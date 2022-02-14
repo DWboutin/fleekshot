@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import { useIntl } from "react-intl";
 import styled from "styled-components";
 import { ThemeContainer } from "../../../../styles/styles";
 import { toREM } from "../../../../styles/typography";
@@ -114,6 +115,7 @@ const TextField: React.VoidFunctionComponent<Props> = ({
   onChange,
   error,
 }) => {
+  const intl = useIntl();
   const {
     selectors: { fieldValue, fieldType, isFocused },
     actions: {
@@ -138,7 +140,7 @@ const TextField: React.VoidFunctionComponent<Props> = ({
           onBlur={handleOnBlur}
         />
         {!!error && (
-          <ErrorIcon title={error}>
+          <ErrorIcon title={intl.formatMessage({ id: error })}>
             <Boxicon name="x-circle" size="small" />
           </ErrorIcon>
         )}

@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { NextPageWithLayout } from "../../types/nextPageWithLayout";
 import LayoutSignForm from "../../components/LayoutSignForm";
-import SignUpForm from "../../components/SignUpForm";
+import SignUpForm from "../../components/SignIn/SignUpForm";
 
 const SignUp: NextPageWithLayout = () => {
   return (

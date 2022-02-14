@@ -7,7 +7,7 @@ import { IntlMessages } from "./types";
 const fr = {
   hello: "Bonjour",
   ...signUpForm,
-  // ...signInForm,
+  ...signInForm,
 };
 
 export default flat(fr, { delimiter: "_" }) as IntlMessages;

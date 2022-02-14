@@ -19,6 +19,7 @@ const en: SignInFormIntl = {
       isRequired: "Is required",
       notStrongEnough: "Not strong enough",
       mismatch: "Password mismatch",
+      noUser: "No user was found",
     },
   },
 };
