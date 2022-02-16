@@ -4,7 +4,7 @@ exports[`intl SignUpForm en should match snapshot 1`] = `
 Object {
   "signInForm": Object {
     "button": Object {
-      "submit": "submit",
+      "submit": "Submit",
     },
     "errors": Object {
       "isRequired": "Is required",
@@ -22,6 +22,7 @@ Object {
         "label": "Username",
       },
     },
+    "title": "Sign in",
   },
 }
 `;

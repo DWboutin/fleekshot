@@ -27,6 +27,7 @@ Object {
         "label": "Username",
       },
     },
+    "title": "Sign up",
   },
 }
 `;

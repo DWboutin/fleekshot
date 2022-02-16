@@ -27,6 +27,7 @@ Object {
         "label": "Nom D'utilisateur",
       },
     },
+    "title": "Inscription",
   },
 }
 `;

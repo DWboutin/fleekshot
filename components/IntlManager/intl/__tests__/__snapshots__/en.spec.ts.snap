@@ -2,8 +2,8 @@
 
 exports[`intl en should match snapshot 1`] = `
 Object {
-  "hello": "Hello",
-  "signInForm_button_submit": "submit",
+  "home": "Home",
+  "signInForm_button_submit": "Submit",
   "signInForm_errors_isRequired": "Is required",
   "signInForm_errors_mismatch": "Password mismatch",
   "signInForm_errors_noUser": "No user was found",
@@ -12,6 +12,7 @@ Object {
   "signInForm_errors_tooShort": "Too short",
   "signInForm_input_password_label": "Password",
   "signInForm_input_username_label": "Username",
+  "signInForm_title": "Sign in",
   "signUpForm_button_submit": "submit",
   "signUpForm_errors_isRequired": "Is required",
   "signUpForm_errors_mismatch": "Password mismatch",
@@ -22,5 +23,6 @@ Object {
   "signUpForm_input_name_label": "Complete name",
   "signUpForm_input_password_label": "Password",
   "signUpForm_input_username_label": "Username",
+  "signUpForm_title": "Sign up",
 }
 `;
