@@ -32,7 +32,20 @@ routes.post("/", async (req: Request, res: Response, next: NextFunction) => {
 
     const createdUser = await User.create(userSignUpData);
 
-    ResponseHandler.build(res, 200, createdUser);
+    return ResponseHandler.build(res, 200, createdUser);
+  } catch (err) {
+    console.error("Unhandled error", err);
+    next(err);
+  }
+});
+
+routes.get("/", async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    if (req.session.user) {
+      return ResponseHandler.build(res, 200, req.session.user);
+    }
+
+    return ResponseHandler.build(res, 200, {});
   } catch (err) {
     console.error("Unhandled error", err);
     next(err);
@@ -45,9 +58,11 @@ routes.post(
     try {
       const userSignInData: UserSignUpData = req.body.user;
 
-      const createdUser = await User.signIn(userSignInData);
+      const signedInUser = await User.signIn(userSignInData);
 
-      res.status(200).send(createdUser);
+      req.session.user = signedInUser;
+
+      return res.status(200).send(signedInUser);
     } catch (err) {
       next(err);
     }

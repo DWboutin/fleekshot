@@ -23,7 +23,7 @@ class UserController {
       const result = await user.save();
       const formattedUser = this.userFactory.formatFromDocument(result);
 
-      return this.responseFactory.formatResponse(formattedUser);
+      return formattedUser;
     } catch (err) {
       return this.responseFactory.formatErrorResponse(err as Error);
     }
@@ -51,11 +51,11 @@ class UserController {
         if (isPasswordValid) {
           const formattedUser = this.userFactory.formatFromDocument(user);
 
-          return this.responseFactory.formatResponse(formattedUser);
+          return formattedUser;
         }
       }
 
-      return this.responseFactory.formatResponse([]);
+      return {};
     } catch (err) {
       return this.responseFactory.formatErrorResponse(err as Error);
     }

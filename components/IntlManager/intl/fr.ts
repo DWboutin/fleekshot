@@ -5,7 +5,7 @@ import signInForm from "../../SignInForm/intl/fr";
 import { IntlMessages } from "./types";
 
 const fr = {
-  hello: "Bonjour",
+  home: "Accueil",
   ...signUpForm,
   ...signInForm,
 };

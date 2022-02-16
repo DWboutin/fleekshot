@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 
-import Content from "./Layout/Content";
-import Header from "./Layout/Header";
+import Content from "./Layout/components/Content";
+import Header from "./Layout/components/Header";
 
 const Layout: NextPage = ({ children }) => {
   return (

@@ -1,6 +1,12 @@
 const API_URL = process.env.API_URL;
 
 class HttpRequestService {
+  static async get(endpoint: string) {
+    const response = await fetch(`${API_URL}${endpoint}`);
+
+    return response.json();
+  }
+
   static async post(endpoint: string, data: any) {
     const response = await fetch(`${API_URL}${endpoint}`, {
       method: "POST",

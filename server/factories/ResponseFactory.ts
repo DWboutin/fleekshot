@@ -5,6 +5,5 @@ export interface FormattedResponse {
 
 export interface ResponseFactory {
   getErrorStatusCode(errorName: string): number;
-  formatResponse(data: any): FormattedResponse;
   formatErrorResponse(data: Error): FormattedResponse;
 }

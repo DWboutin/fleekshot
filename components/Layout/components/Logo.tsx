@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import styled from "styled-components";
-import { fonts, toREM } from "../../styles/typography";
+import { fonts, toREM } from "../../../styles/typography";
 
 const Container = styled.div`
   font-family: ${fonts.logo};

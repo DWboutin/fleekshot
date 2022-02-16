@@ -2,6 +2,7 @@ import { SignUpFormIntl } from "./type";
 
 const en: SignUpFormIntl = {
   signUpForm: {
+    title: "Sign up",
     input: {
       name: {
         label: "Complete name",

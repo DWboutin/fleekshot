@@ -4,14 +4,15 @@ import { ThemeContainer } from "../styles/styles";
 
 const Container = styled.div`
   display: flex;
+  min-height: 100vh;
   justify-content: space-around;
 `;
 
 const Content = styled.div`
   display: flex;
+  flex-direction: column;
   width: ${({ theme }: ThemeContainer) => theme.layout.signup.width};
   padding: ${({ theme }: ThemeContainer) => theme.layout.signup.padding};
-  justify-content: space-around;
 `;
 
 const LayoutSignForm: NextPage = ({ children }) => {

@@ -14,13 +14,6 @@ class UserResponseFactory implements ResponseFactory {
     }
   }
 
-  formatResponse(data: any): FormattedResponse {
-    return {
-      statusCode: 200,
-      body: data,
-    };
-  }
-
   formatErrorResponse(data: Error): FormattedResponse {
     return {
       statusCode: this.getErrorStatusCode(data.name),

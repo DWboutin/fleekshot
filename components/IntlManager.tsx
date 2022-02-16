@@ -1,17 +1,12 @@
 import type { NextPage } from "next";
-import {
-  createIntl,
-  createIntlCache,
-  IntlProvider,
-  RawIntlProvider,
-} from "react-intl";
+import { createIntl, createIntlCache, RawIntlProvider } from "react-intl";
 import { createContext, useContext, useMemo } from "react";
 import useIntlManager from "./IntlManager/hooks/useIntlManager";
 import messages from "./IntlManager/intl/messages";
 import { IntlLocale } from "./IntlManager/intl/types";
 
-interface IntlContextProps {
-  locale: string;
+export interface IntlContextProps {
+  locale: IntlLocale;
   handleLanguageChange: (locale: IntlLocale) => void;
 }
 

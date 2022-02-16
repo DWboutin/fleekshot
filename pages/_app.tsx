@@ -4,12 +4,12 @@ import { ThemeProvider } from "styled-components";
 import "normalize.css";
 import "boxicons/css/boxicons.css";
 
-import Layout from "../components/Layout";
 import GlobalStyle from "../styles/globalStyle";
 import { theme } from "../styles/styles";
 import IntlManager from "../components/IntlManager";
 import { NextPage } from "next";
 import { ReactElement, ReactNode } from "react";
+import AuthManager from "../components/AuthManager";
 
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -26,7 +26,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     <ThemeProvider theme={theme}>
       <GlobalStyle />
       <IntlManager>
-        <Layout>{getLayout(<Component {...pageProps} />)}</Layout>
+        <AuthManager>{getLayout(<Component {...pageProps} />)}</AuthManager>
       </IntlManager>
     </ThemeProvider>
   );

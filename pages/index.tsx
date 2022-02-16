@@ -1,9 +1,13 @@
-import type { NextPage } from "next";
+import { NextPageContext } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { FormattedMessage } from "react-intl";
+import Layout from "../components/Layout";
+import UtilsLinks from "../components/Layout/components/UtilsLinks";
+import protectRoute from "../components/Layout/utils/protectRoute";
+import { NextPageWithLayout } from "../types/nextPageWithLayout";
 
-const Home: NextPage = () => {
+const Home: NextPageWithLayout = () => {
   return (
     <>
       <Head>
@@ -12,20 +16,14 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>
-        <FormattedMessage id="hello" />
-        <div>
-          <Link href="/accounts/sign-up">
-            <a>Signup</a>
-          </Link>
-        </div>
-        <div>
-          <Link href="/accounts/sign-in">
-            <a>Signin</a>
-          </Link>
-        </div>
+        <UtilsLinks />
       </div>
     </>
   );
 };
 
-export default Home;
+Home.getLayout = function getLayout(page) {
+  return <Layout>{page}</Layout>;
+};
+
+export default protectRoute(Home);

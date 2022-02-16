@@ -1,5 +1,6 @@
 export interface SignUpFormIntl {
   signUpForm: {
+    title: string;
     input: {
       name: {
         label: string;
@@ -28,6 +29,7 @@ export interface SignUpFormIntl {
 }
 
 export enum SignUpFormIntlId {
+  signUpForm_title = "signUpForm_title",
   signUpForm_input_name_label = "signUpForm_input_name_label",
   signUpForm_input_username_label = "signUpForm_input_username_label",
   signUpForm_input_password_label = "signUpForm_input_password_label",

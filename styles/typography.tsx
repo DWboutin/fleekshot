@@ -18,3 +18,14 @@ export const fonts = {
   logo: logoFontFamily,
   text: textFontFamily,
 };
+
+export const fontSizes = {
+  h1: toREM(32),
+  h2: toREM(24),
+  h3: toREM(24),
+  large: toREM(16),
+  normal: toREM(14),
+  small: toREM(12),
+  xsmall: toREM(11),
+  caption: toREM(10),
+};

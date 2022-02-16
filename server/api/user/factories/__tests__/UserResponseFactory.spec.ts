@@ -3,19 +3,6 @@ import UserResponseFactory from "../UserResponseFactory";
 describe("UserFactory", () => {
   const userResponseFactory = new UserResponseFactory();
 
-  describe("formatResponse", () => {
-    const DATA = {
-      name: "NAME",
-    };
-
-    it("should format a successful response", () => {
-      expect(userResponseFactory.formatResponse(DATA)).toEqual({
-        statusCode: 200,
-        body: DATA,
-      });
-    });
-  });
-
   describe("formatErrorResponse", () => {
     it("should handle a validation error correctly", () => {
       const ERROR = {

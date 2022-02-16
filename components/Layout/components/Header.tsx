@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import styled from "styled-components";
-import { ThemeContainer } from "../../styles/styles";
+import { ThemeContainer } from "../../../styles/styles";
 import Logo from "./Logo";
 
 const Container = styled.div`

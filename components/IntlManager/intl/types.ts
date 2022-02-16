@@ -1,5 +1,5 @@
-import { SignInFormIntlFlatten } from "../../intl/type";
-import { SignUpFormIntlFlatten } from "../../SignIn/SignUpForm/intl/type";
+import { SignInFormIntlFlatten } from "../../SignInForm/intl/type";
+import { SignUpFormIntlFlatten } from "../../SignUpForm/intl/type";
 
 export enum IntlLocale {
   en = "en",
@@ -7,7 +7,7 @@ export enum IntlLocale {
 }
 
 export interface IntlMessages extends Record<string, any> {
-  hello: string;
+  home: string;
   signUpForm: SignUpFormIntlFlatten;
   signInForm: SignInFormIntlFlatten;
 }

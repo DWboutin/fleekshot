@@ -25,6 +25,11 @@ export interface Theme {
   content: {
     bg: string;
   };
+  typography: {
+    h1: {
+      color: string;
+    };
+  };
   forms: {
     errorColor: string;
     container: {
@@ -58,6 +63,10 @@ export interface Theme {
       padding: string;
     };
   };
+  utilsLinks: {
+    color: string;
+    hoverColor: string;
+  };
 }
 
 export const theme: Theme = {
@@ -71,6 +80,11 @@ export const theme: Theme = {
   },
   content: {
     bg: colors.paleGrey,
+  },
+  typography: {
+    h1: {
+      color: colors.black,
+    },
   },
   forms: {
     errorColor: colors.red,
@@ -104,5 +118,9 @@ export const theme: Theme = {
       width: "350px",
       padding: "20px",
     },
+  },
+  utilsLinks: {
+    color: colors.grey2,
+    hoverColor: colors.black,
   },
 };

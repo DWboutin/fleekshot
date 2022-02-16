@@ -3,28 +3,21 @@ import { useIntl } from "react-intl";
 import styled from "styled-components";
 import { useFormik } from "formik";
 
-import { ThemeContainer } from "../styles/styles";
+import { ThemeContainer } from "../../../styles/styles";
 import TextField, {
   Container as TextFieldContainer,
-} from "./forms/Textfield/components/TextField";
-import userCreationSchema from "../validations/userCreationSchema";
-import { SignUpFormIntlId } from "./SignUpForm/intl/type";
-import Button from "./forms/Button/Button";
-import { User } from "../server/api/user/models/UserModel";
-import HttpRequestService from "../services/HttpRequestService";
+} from "../../forms/Textfield/components/TextField";
+import userCreationSchema from "../../../validations/userCreationSchema";
+import { SignUpFormIntlId } from "../intl/type";
+import Button from "../../forms/Button/Button";
+import FormContent from "../../Layout/components/FormContent";
+import { useSignUpForm } from "../hooks/useSignUpForm";
 
 interface ContainerProps {}
 
 const Form = styled.form<ContainerProps>`
   display: flex;
-  flex: 1;
   flex-direction: column;
-  padding: 20px;
-  ${({ theme }: ThemeContainer) => `
-    background-color: ${theme.forms.container.bg};
-    border: 1px solid ${theme.forms.container.border};
-    border-radius: ${theme.forms.container.borderRadius};
-  `}
 
   ${TextFieldContainer}:not(:last-child) {
     margin-bottom: ${({ theme }: ThemeContainer) =>
@@ -36,11 +29,9 @@ interface Props {}
 
 const SignUpForm: React.VoidFunctionComponent<Props> = ({}) => {
   const intl = useIntl();
-  const saveUser = async (user: User) => {
-    const result = await HttpRequestService.post("/user/", { user });
-
-    return result;
-  };
+  const {
+    actions: { handleFormSubmit },
+  } = useSignUpForm();
   const { values, touched, errors, handleChange, handleSubmit } = useFormik({
     initialValues: {
       name: "",
@@ -49,9 +40,7 @@ const SignUpForm: React.VoidFunctionComponent<Props> = ({}) => {
       confirmPassword: "",
     },
     validationSchema: userCreationSchema,
-    onSubmit: async (values) => {
-      const userRequest = await saveUser(values);
-    },
+    onSubmit: handleFormSubmit,
   });
 
   return (
@@ -101,7 +90,9 @@ const SignUpForm: React.VoidFunctionComponent<Props> = ({}) => {
         error={touched.confirmPassword && errors.confirmPassword}
       />
       <Button type="submit">
-        {intl.formatMessage({ id: SignUpFormIntlId.signUpForm_button_submit })}
+        {intl.formatMessage({
+          id: SignUpFormIntlId.signUpForm_button_submit,
+        })}
       </Button>
     </Form>
   );

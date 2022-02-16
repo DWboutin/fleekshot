@@ -45,10 +45,6 @@ describe("UserController", () => {
     responseFactory as any
   );
 
-  const formatResponse = (value: any) => ({
-    statusCode: STATUS_CODE,
-    body: value,
-  });
   const formatErrorResponse = (value: any) => ({
     statusCode: ERROR_STATUS_CODE,
     body: value,
@@ -58,9 +54,6 @@ describe("UserController", () => {
     jest.resetModules();
     jest.clearAllMocks();
 
-    responseFactory.formatResponse = jest
-      .fn()
-      .mockImplementation(formatResponse);
     responseFactory.formatErrorResponse = jest
       .fn()
       .mockImplementation(formatErrorResponse);
@@ -93,8 +86,7 @@ describe("UserController", () => {
         expect(userFactory.formatFromDocument).toHaveBeenCalledWith(
           USER_DOCUMENT
         );
-        expect(responseFactory.formatResponse).toHaveBeenCalledWith(USER);
-        expect(value).toEqual(formatResponse(USER));
+        expect(value).toEqual(USER);
       });
     });
 
@@ -181,7 +173,7 @@ describe("UserController", () => {
         expect(userFactory.formatFromDocument).toHaveBeenCalledWith(
           USER_DOCUMENT
         );
-        expect(value).toEqual(formatResponse(USER));
+        expect(value).toEqual(USER);
       });
     });
 
@@ -204,7 +196,7 @@ describe("UserController", () => {
           userValidator.validatePasswordWithModel
         ).not.toHaveBeenCalledWith();
         expect(userFactory.formatFromDocument).not.toHaveBeenCalledWith();
-        expect(value).toEqual(formatResponse([]));
+        expect(value).toEqual({});
       });
     });
 

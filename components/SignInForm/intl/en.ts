@@ -2,6 +2,7 @@ import { SignInFormIntl } from "./type";
 
 const en: SignInFormIntl = {
   signInForm: {
+    title: "Sign in",
     input: {
       username: {
         label: "Username",
@@ -11,7 +12,7 @@ const en: SignInFormIntl = {
       },
     },
     button: {
-      submit: "submit",
+      submit: "Submit",
     },
     errors: {
       tooShort: "Too short",

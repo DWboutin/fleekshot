@@ -3,28 +3,20 @@ import { useIntl } from "react-intl";
 import styled from "styled-components";
 import { useFormik } from "formik";
 
-import { ThemeContainer } from "../styles/styles";
+import { ThemeContainer } from "../../../styles/styles";
 import TextField, {
   Container as TextFieldContainer,
-} from "./forms/Textfield/components/TextField";
-import Button from "./forms/Button/Button";
-import { UserSignInData } from "../server/api/user/dto/UserDTO";
-import HttpRequestService from "../services/HttpRequestService";
-import userSignInSchema from "../validations/userSignInSchema";
-import { SignInFormIntlId } from "./SignInForm/intl/type";
+} from "../../forms/Textfield/components/TextField";
+import Button from "../../forms/Button/Button";
+import userSignInSchema from "../../../validations/userSignInSchema";
+import { SignInFormIntlId } from "../intl/type";
+import { useSignInForm } from "../hooks/useSignInForm";
 
 interface ContainerProps {}
 
 const Form = styled.form<ContainerProps>`
   display: flex;
-  flex: 1;
   flex-direction: column;
-  padding: 20px;
-  ${({ theme }: ThemeContainer) => `
-    background-color: ${theme.forms.container.bg};
-    border: 1px solid ${theme.forms.container.border};
-    border-radius: ${theme.forms.container.borderRadius};
-  `}
 
   ${TextFieldContainer}:not(:last-child) {
     margin-bottom: ${({ theme }: ThemeContainer) =>
@@ -36,24 +28,16 @@ interface Props {}
 
 const SignInForm: React.VoidFunctionComponent<Props> = ({}) => {
   const intl = useIntl();
-  const getUser = async (user: UserSignInData) => {
-    const result = await HttpRequestService.post("/user/sign-in", {
-      user,
-    });
-
-    return result;
-  };
+  const {
+    actions: { handleFormSubmit },
+  } = useSignInForm();
   const { values, touched, errors, handleChange, handleSubmit } = useFormik({
     initialValues: {
       username: "",
       password: "",
     },
     validationSchema: userSignInSchema,
-    onSubmit: async (values) => {
-      const user = await getUser(values);
-
-      console.log(user);
-    },
+    onSubmit: handleFormSubmit,
   });
 
   return (
