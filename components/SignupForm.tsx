@@ -10,7 +10,7 @@ import TextField, {
 import userCreationSchema from "../validations/userCreationSchema";
 import { SignUpFormIntlId } from "./SignUpForm/intl/type";
 import Button from "./forms/Button/Button";
-import { User } from "../server/user/models/UserModel";
+import { User } from "../server/api/user/models/UserModel";
 import HttpRequestService from "../services/HttpRequestService";
 
 interface ContainerProps {}

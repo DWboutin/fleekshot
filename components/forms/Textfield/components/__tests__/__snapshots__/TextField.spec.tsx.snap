@@ -80,7 +80,7 @@ exports[`<TextField /> with error should match snapshot 1`] = `
       />
       <span
         class="sc-eCImPb jjtWCt"
-        title="error message"
+        title="Is required"
       >
         <i
           class="bx bx-x-circle bx-sm"

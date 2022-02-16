@@ -1,6 +1,6 @@
 import express from "express";
 
-import user from "./user";
+import user from "./api/user";
 
 const routes = express.Router();
 

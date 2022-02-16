@@ -3,6 +3,9 @@
 exports[`intl SignUpForm fr should match snapshot 1`] = `
 Object {
   "signUpForm": Object {
+    "button": Object {
+      "submit": "submit",
+    },
     "errors": Object {
       "isRequired": "Est requis",
       "mismatch": "Ne correspond pas",

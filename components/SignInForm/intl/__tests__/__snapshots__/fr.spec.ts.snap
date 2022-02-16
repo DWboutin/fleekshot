@@ -2,21 +2,19 @@
 
 exports[`intl SignUpForm fr should match snapshot 1`] = `
 Object {
-  "signUpForm": Object {
+  "signInForm": Object {
+    "button": Object {
+      "submit": "submit",
+    },
     "errors": Object {
       "isRequired": "Est requis",
       "mismatch": "Ne correspond pas",
+      "noUser": "No user was found",
       "notStrongEnough": "Trop faible",
       "tooLong": "Trop long",
       "tooShort": "Trop court",
     },
     "input": Object {
-      "confirmPassword": Object {
-        "label": "Confirmation du mot de passe",
-      },
-      "name": Object {
-        "label": "Nom complet",
-      },
       "password": Object {
         "label": "Mot de passe",
       },

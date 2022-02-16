@@ -5,6 +5,7 @@ import {
   screen,
 } from "@testing-library/react";
 import TestWrapper from "../../../../../utils/TestWrapper";
+import { SignInFormIntlId } from "../../../../SignInForm/intl/type";
 
 import TextField, { Props } from "../TextField";
 
@@ -126,7 +127,7 @@ describe("<TextField />", () => {
     const NAME = "name";
     const TYPE = "text";
     const LABEL = "field label";
-    const ERROR = "error message";
+    const ERROR = SignInFormIntlId.signInForm_errors_isRequired;
 
     beforeEach(() => {
       renderTextField({
@@ -153,6 +154,4 @@ describe("<TextField />", () => {
       expect(errorIcon?.classList).toContain("bx-x-circle");
     });
   });
-
-  describe("controlled", () => {});
 });

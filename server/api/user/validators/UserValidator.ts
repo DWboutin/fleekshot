@@ -1,7 +1,7 @@
-import userCreationSchema from "../../../validations/userCreationSchema";
-import userPasswordCompareSchema from "../../../validations/userPasswordCompareSchema";
-import userSignInSchema from "../../../validations/userSignInSchema";
-import DataValidator from "../../validator/DataValidator";
+import userCreationSchema from "../../../../validations/userCreationSchema";
+import userPasswordCompareSchema from "../../../../validations/userPasswordCompareSchema";
+import userSignInSchema from "../../../../validations/userSignInSchema";
+import DataValidator from "../../../validator/DataValidator";
 import {
   UserComparePassword,
   UserSignInData,
@@ -28,13 +28,17 @@ class UserValidator {
   public async validatePasswordWithModel(
     userComparePassword: UserComparePassword
   ) {
-    const validator = new DataValidator<UserComparePassword>(
-      userPasswordCompareSchema
-    );
+    try {
+      const validator = new DataValidator<UserComparePassword>(
+        userPasswordCompareSchema
+      );
 
-    const validatedData = await validator.validate(userComparePassword);
+      await validator.validate(userComparePassword);
 
-    return validatedData;
+      return true;
+    } catch (err) {
+      return false;
+    }
   }
 }
 

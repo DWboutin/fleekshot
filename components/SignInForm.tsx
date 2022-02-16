@@ -8,7 +8,7 @@ import TextField, {
   Container as TextFieldContainer,
 } from "./forms/Textfield/components/TextField";
 import Button from "./forms/Button/Button";
-import { UserSignInData } from "../server/user/dto/UserDTO";
+import { UserSignInData } from "../server/api/user/dto/UserDTO";
 import HttpRequestService from "../services/HttpRequestService";
 import userSignInSchema from "../validations/userSignInSchema";
 import { SignInFormIntlId } from "./SignInForm/intl/type";

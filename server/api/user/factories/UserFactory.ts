@@ -1,18 +1,16 @@
 import {
   UserComparePassword,
   UserDocument,
-  UserSignedIn,
-  UserSignInData,
+  UserFormatted,
   UserSignUpData,
 } from "../dto/UserDTO";
 import { User } from "../models/UserModel";
-import { EncryptionService } from "../../services/EncryptionService";
+import { EncryptionService } from "../../../services/EncryptionService";
 import { Document } from "mongoose";
 
 export interface UserFactory {
   createFromSignUp(userRawData: UserSignUpData): User;
-  formatForSignIn(userRawData: UserSignInData): UserSignInData;
-  formatFromDocument(userDocument: UserDocument): UserSignedIn;
+  formatFromDocument(userDocument: UserDocument): UserFormatted;
   formatPasswordToCompare(
     userDocument: UserDocument,
     rawPassword: string
@@ -27,13 +25,6 @@ class UserFactoryImpl implements UserFactory {
       name: userRawData.name,
       username: userRawData.username,
       password: this.encryptionServive.encrypt(userRawData.password),
-    };
-  }
-
-  formatForSignIn(userRawData: UserSignInData) {
-    return {
-      username: userRawData.username,
-      password: userRawData.password,
     };
   }
 

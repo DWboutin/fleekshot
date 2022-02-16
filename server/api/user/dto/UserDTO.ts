@@ -12,7 +12,7 @@ export interface UserSignInData {
 
 export interface UserDocument extends User, Document {}
 
-export interface UserSignedIn {
+export interface UserFormatted {
   id: string;
   name: string;
   username: string;

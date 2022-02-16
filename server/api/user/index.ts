@@ -3,9 +3,11 @@ import dotenv from "dotenv";
 
 import UserController from "./controllers/UserController";
 import UserFactoryImpl from "./factories/UserFactory";
-import EncryptionServiceImpl from "../services/EncryptionService";
+import EncryptionServiceImpl from "../../services/EncryptionService";
 import { UserSignUpData } from "./dto/UserDTO";
 import UserValidator from "./validators/UserValidator";
+import UserErrorResponseFactory from "./factories/UserResponseFactory";
+import ResponseHandler from "../../handler/ResponseHandler";
 
 dotenv.config();
 
@@ -17,7 +19,12 @@ const routes = express.Router();
 
 const validator = new UserValidator();
 const userFactory = new UserFactoryImpl(encryptionService);
-const User = new UserController(validator, userFactory);
+const userErrorResponseFactory = new UserErrorResponseFactory();
+const User = new UserController(
+  validator,
+  userFactory,
+  userErrorResponseFactory
+);
 
 routes.post("/", async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -25,8 +32,9 @@ routes.post("/", async (req: Request, res: Response, next: NextFunction) => {
 
     const createdUser = await User.create(userSignUpData);
 
-    res.status(200).send(createdUser);
+    ResponseHandler.build(res, 200, createdUser);
   } catch (err) {
+    console.error("Unhandled error", err);
     next(err);
   }
 });
@@ -45,15 +53,5 @@ routes.post(
     }
   }
 );
-
-routes.get("/read", (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const users = User.read();
-
-    res.status(200).send(users);
-  } catch (err) {
-    next(err);
-  }
-});
 
 export default routes;
