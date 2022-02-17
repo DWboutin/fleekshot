@@ -2,6 +2,7 @@ import { NextPageContext } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { FormattedMessage } from "react-intl";
+import WithAuthentication from "../components/AuthManager/components/withAuthentication";
 import Layout from "../components/Layout";
 import UtilsLinks from "../components/Layout/components/UtilsLinks";
 import protectRoute from "../components/Layout/utils/protectRoute";
@@ -22,8 +23,10 @@ const Home: NextPageWithLayout = () => {
   );
 };
 
-Home.getLayout = function getLayout(page) {
+const HomeWithAuthentication = WithAuthentication(Home);
+
+HomeWithAuthentication.getLayout = function getLayout(page) {
   return <Layout>{page}</Layout>;
 };
 
-export default protectRoute(Home);
+export default HomeWithAuthentication;

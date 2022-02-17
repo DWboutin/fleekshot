@@ -9,7 +9,7 @@ import { theme } from "../styles/styles";
 import IntlManager from "../components/IntlManager";
 import { NextPage } from "next";
 import { ReactElement, ReactNode } from "react";
-import AuthManager from "../components/AuthManager";
+import AuthManager from "../components/AuthManager/components/AuthManager";
 
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;

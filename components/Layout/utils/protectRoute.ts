@@ -1,7 +1,7 @@
 import { IncomingMessage, ServerResponse } from "http";
 import { NextPage, NextPageContext } from "next";
 import { NextPageWithLayout } from "../../../types/nextPageWithLayout";
-import { useAuthContext } from "../../AuthManager";
+import { useAuthContext } from "../../AuthManager/components/AuthManager";
 
 interface ReqSession extends IncomingMessage {
   session: {

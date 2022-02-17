@@ -5,7 +5,10 @@ import {
   UserSignInData,
 } from "../../../server/api/user/dto/UserDTO";
 import HttpRequestService from "../../../services/HttpRequestService";
-import { AuthContextProps, useAuthContext } from "../../AuthManager";
+import {
+  AuthContextProps,
+  useAuthContext,
+} from "../../AuthManager/components/AuthManager";
 
 export interface SignInFormSelectors {}
 
@@ -31,6 +34,8 @@ export function useSignInForm(): SignInFormHook {
   const authContext = useAuthContext() as AuthContextProps;
   const handleFormSubmit = async (values: UserSignInData) => {
     const user: UserFormatted = await getUserSignIn(values);
+
+    console.log("signin user", { user });
 
     if (!!user.id) {
       authContext.handleAuth(user);

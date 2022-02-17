@@ -1,8 +1,9 @@
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { createContext, useContext, useEffect, useState } from "react";
-import { UserFormatted } from "../server/api/user/dto/UserDTO";
-import HttpRequestService from "../services/HttpRequestService";
+import { UserFormatted } from "../../../server/api/user/dto/UserDTO";
+import HttpRequestService from "../../../services/HttpRequestService";
+import { useAuthManager } from "../hooks/useAuthManager";
 
 export interface AuthContextProps {
   isAuthenticated: boolean;
@@ -23,26 +24,10 @@ export const useAuthContext = (): Partial<AuthContextProps> => {
 };
 
 const AuthManager: NextPage = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [user, setUser] = useState<UserFormatted | null>(null);
-  const fetchSession = async () => {
-    const session = await HttpRequestService.get("/user/");
-
-    if (!session.id) {
-      handleAuth(session);
-    }
-  };
-
-  useEffect(() => {
-    fetchSession();
-  }, []);
-
-  const handleAuth = (session: UserFormatted) => {
-    if (!session.id) {
-      setIsAuthenticated(true);
-      setUser(session);
-    }
-  };
+  const {
+    selectors: { isAuthenticated, user },
+    actions: { handleAuth },
+  } = useAuthManager();
 
   return (
     <AuthContext.Provider

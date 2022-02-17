@@ -62,8 +62,9 @@ routes.post(
 
       req.session.user = signedInUser;
 
-      return res.status(200).send(signedInUser);
+      return ResponseHandler.build(res, 200, signedInUser);
     } catch (err) {
+      console.error("Unhandled error", err);
       next(err);
     }
   }
