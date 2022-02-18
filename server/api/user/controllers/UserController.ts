@@ -19,20 +19,17 @@ class UserController {
   ) {}
 
   public async create(userSignUpData: UserSignUpData) {
-    try {
-      const validRawData = await this.validator.validateSignUpData(
-        userSignUpData
-      );
-      const userData = this.userFactory.createFromSignUp(validRawData);
-      const user = new UserModel(userData);
+    const validRawData = await this.validator.validateSignUpData(
+      userSignUpData
+    );
+    console.log({ validRawData });
+    const userData = this.userFactory.createFromSignUp(validRawData);
+    const user = new UserModel(userData);
 
-      const result = await user.save();
-      const formattedUser = this.userFactory.formatFromDocument(result);
+    const result = await user.save();
+    const formattedUser = this.userFactory.formatFromDocument(result);
 
-      return formattedUser;
-    } catch (err) {
-      return this.responseFactory.formatErrorResponse(err as Error);
-    }
+    return formattedUser;
   }
 
   public async signIn(userSignInData: UserSignInData) {
@@ -69,9 +66,7 @@ class UserController {
 
   public async setProfilePicture(userId: string, file: Express.Multer.File) {
     try {
-      const id = new mongoose.Types.ObjectId(userId);
-
-      const user = await UserModel.findByIdAndUpdate(id, {
+      const user = await UserModel.findByIdAndUpdate(userId, {
         profilePicture: file.filename,
       });
 
@@ -83,7 +78,7 @@ class UserController {
           ImagePaths.MinifiedProfilePicture
         );
 
-        const updatedUser = await UserModel.findById(id);
+        const updatedUser = await UserModel.findById(userId);
 
         if (updatedUser) {
           return this.userFactory.formatFromDocument(updatedUser);

@@ -12,7 +12,9 @@ import UserModel, { User } from "../../models/UserModel";
 import UserValidator from "../../validators/UserValidator";
 import UserFactory from "../../factories/UserFactory";
 import UserController from "../UserController";
-import ImageOptimizationService from "../../../../services/ImageOptimizer";
+import ImageOptimizationService, {
+  ImagePaths,
+} from "../../../../services/ImageOptimizer";
 
 jest.mock("../../validators/UserValidator");
 jest.mock("../../factories/UserResponseFactory");
@@ -225,6 +227,45 @@ describe("UserController", () => {
         );
         expect(value).toEqual(formatErrorResponse(ERROR));
       });
+    });
+  });
+
+  describe("setProfilePicture", () => {
+    const USER_ID = "ID";
+    const FILE = {
+      filename: "FILENAME",
+    } as Express.Multer.File;
+
+    const mockSave = jest.fn().mockResolvedValue(USER_DOCUMENT);
+
+    beforeEach(() => {
+      UserModel.findByIdAndUpdate = jest.fn().mockImplementation(() =>
+        Promise.resolve({
+          save: () => mockSave(),
+        })
+      );
+      UserModel.findById = jest.fn().mockResolvedValue(USER_DOCUMENT);
+      imageOptimizer.minifyAvatarImage = jest.fn();
+      userFactory.formatFromDocument = jest.fn().mockImplementation(() => USER);
+    });
+
+    it("it should handle the request correctly", async () => {
+      const value = await userController.setProfilePicture(USER_ID, FILE);
+
+      expect(UserModel.findByIdAndUpdate).toHaveBeenCalledWith(USER_ID, {
+        profilePicture: FILE.filename,
+      });
+
+      expect(mockSave).toHaveBeenCalled();
+      expect(imageOptimizer.minifyAvatarImage).toHaveBeenCalledWith(
+        FILE,
+        ImagePaths.MinifiedProfilePicture
+      );
+      expect(UserModel.findById).toHaveBeenCalledWith(USER_ID);
+      expect(userFactory.formatFromDocument).toHaveBeenCalledWith(
+        USER_DOCUMENT
+      );
+      expect(value).toEqual(USER);
     });
   });
 });

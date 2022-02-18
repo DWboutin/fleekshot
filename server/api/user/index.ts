@@ -72,7 +72,6 @@ routes.post("/", async (req: Request, res: Response, next: NextFunction) => {
 
     return ResponseHandler.build(res, 200, createdUser);
   } catch (err) {
-    console.error("Unhandled error", err);
     next(err);
   }
 });
@@ -85,7 +84,6 @@ routes.get("/", async (req: Request, res: Response, next: NextFunction) => {
 
     return ResponseHandler.build(res, 200, {});
   } catch (err) {
-    console.error("Unhandled error", err);
     next(err);
   }
 });
@@ -102,7 +100,6 @@ routes.post(
 
       return ResponseHandler.build(res, 200, signedInUser);
     } catch (err) {
-      console.error("Unhandled error", err);
       next(err);
     }
   }
