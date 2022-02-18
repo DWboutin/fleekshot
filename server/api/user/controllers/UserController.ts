@@ -71,8 +71,6 @@ class UserController {
     try {
       const id = new mongoose.Types.ObjectId(userId);
 
-      console.log("-----", id);
-
       const user = await UserModel.findByIdAndUpdate(id, {
         profilePicture: file.filename,
       });

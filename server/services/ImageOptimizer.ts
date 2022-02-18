@@ -1,3 +1,4 @@
+import path from "path";
 import sharp from "sharp";
 
 export enum ImagePaths {
@@ -13,7 +14,7 @@ class ImageOptimizationService {
     await sharp(file.path)
       .resize(200, 200)
       .jpeg({ quality: 90 })
-      .toFile(destination);
+      .toFile(path.join(destination, file.filename));
   }
 }
 
