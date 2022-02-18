@@ -3,6 +3,8 @@
 exports[`intl fr should match snapshot 1`] = `
 Object {
   "home": "Accueil",
+  "profile_title": "Profil",
+  "profile_uploadPicture": "Téléverser",
   "signInForm_button_submit": "Submit",
   "signInForm_errors_isRequired": "Est requis",
   "signInForm_errors_mismatch": "Ne correspond pas",

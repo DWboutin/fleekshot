@@ -23,6 +23,7 @@ describe("UserFactory", () => {
     name: "NAME",
     username: "USERNAME",
     password: "PASSWORD",
+    profilePicture: "PROFILE_PICTURE",
   } as UserDocument;
 
   const encryptionService = new EncryptionServiceImpl("hello");
@@ -50,6 +51,7 @@ describe("UserFactory", () => {
       id: "ID",
       name: "NAME",
       username: "USERNAME",
+      profilePicture: "PROFILE_PICTURE",
     };
 
     it("should transform UserRawData to User and encrypt password", () => {

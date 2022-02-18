@@ -6,6 +6,7 @@ const Container = styled.div`
   display: flex;
   min-height: 100vh;
   justify-content: space-around;
+  background-color: ${({ theme }: ThemeContainer) => theme.content.bg};
 `;
 
 const Content = styled.div`

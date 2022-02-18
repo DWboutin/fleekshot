@@ -1,11 +1,7 @@
-import { NextPageContext } from "next";
 import Head from "next/head";
-import Link from "next/link";
-import { FormattedMessage } from "react-intl";
-import WithAuthentication from "../components/AuthManager/components/withAuthentication";
+import WithAuthentication from "../components/AuthManager/components/WithAuthentication";
 import Layout from "../components/Layout";
 import UtilsLinks from "../components/Layout/components/UtilsLinks";
-import protectRoute from "../components/Layout/utils/protectRoute";
 import { NextPageWithLayout } from "../types/nextPageWithLayout";
 
 const Home: NextPageWithLayout = () => {

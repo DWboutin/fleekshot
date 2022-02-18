@@ -4,6 +4,8 @@ exports[`intl messages should match snapshot 1`] = `
 Object {
   "en": Object {
     "home": "Home",
+    "profile_title": "Profile",
+    "profile_uploadPicture": "Upload picture",
     "signInForm_button_submit": "Submit",
     "signInForm_errors_isRequired": "Is required",
     "signInForm_errors_mismatch": "Password mismatch",
@@ -28,6 +30,8 @@ Object {
   },
   "fr": Object {
     "home": "Accueil",
+    "profile_title": "Profil",
+    "profile_uploadPicture": "Téléverser",
     "signInForm_button_submit": "Submit",
     "signInForm_errors_isRequired": "Est requis",
     "signInForm_errors_mismatch": "Ne correspond pas",

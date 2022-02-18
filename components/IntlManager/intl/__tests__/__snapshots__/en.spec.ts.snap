@@ -3,6 +3,8 @@
 exports[`intl en should match snapshot 1`] = `
 Object {
   "home": "Home",
+  "profile_title": "Profile",
+  "profile_uploadPicture": "Upload picture",
   "signInForm_button_submit": "Submit",
   "signInForm_errors_isRequired": "Is required",
   "signInForm_errors_mismatch": "Password mismatch",

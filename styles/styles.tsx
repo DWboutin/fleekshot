@@ -21,6 +21,9 @@ export interface Theme {
   header: {
     bg: string;
     border: string;
+    profile: {
+      bg: string;
+    };
   };
   content: {
     bg: string;
@@ -77,6 +80,9 @@ export const theme: Theme = {
   header: {
     bg: colors.white,
     border: colors.grey,
+    profile: {
+      bg: colors.grey2,
+    },
   },
   content: {
     bg: colors.paleGrey,

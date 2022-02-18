@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`intl SignUpForm fr should match snapshot 1`] = `
+Object {
+  "profile": Object {
+    "title": "Profil",
+    "uploadPicture": "Téléverser",
+  },
+}
+`;

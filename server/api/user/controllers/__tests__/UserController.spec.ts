@@ -1,5 +1,5 @@
-import { ObjectSchema } from "yup";
-import DataValidator from "../../../../validator/DataValidator";
+import mongoose from "mongoose";
+
 import {
   UserComparePassword,
   UserDocument,
@@ -12,25 +12,34 @@ import UserModel, { User } from "../../models/UserModel";
 import UserValidator from "../../validators/UserValidator";
 import UserFactory from "../../factories/UserFactory";
 import UserController from "../UserController";
+import ImageOptimizationService from "../../../../services/ImageOptimizer";
 
 jest.mock("../../validators/UserValidator");
 jest.mock("../../factories/UserResponseFactory");
 jest.mock("../../factories/UserFactory");
+jest.mock("../../../../services/ImageOptimizer");
 
 describe("UserController", () => {
+  const ID = "ID";
   const USER: User = {
     name: "NAME",
     username: "USERNAME",
     password: "PASSWORD",
   };
+  const USER_FORMATTED: UserFormatted = {
+    id: ID,
+    name: "NAME",
+    username: "USERNAME",
+    profilePicture: "PROFILE PICTURE",
+  };
   const USER_DOCUMENT: UserDocument = {
-    _id: "ID",
+    _id: ID,
     __v: "V",
     name: "NAME",
     username: "USERNAME",
     password: "PASSWORD",
+    profilePicture: "PROFILE PICTURE",
   } as UserDocument;
-  const STATUS_CODE = 200;
   const ERROR_STATUS_CODE = 500;
   const ERROR = {
     name: "ValidationError",
@@ -39,9 +48,11 @@ describe("UserController", () => {
   const userValidator = new UserValidator();
   const userFactory = new UserFactory({} as any);
   const responseFactory = new UserResponseFactory();
+  const imageOptimizer = new ImageOptimizationService();
   const userController = new UserController(
     userValidator as any,
     userFactory as any,
+    imageOptimizer as any,
     responseFactory as any
   );
 

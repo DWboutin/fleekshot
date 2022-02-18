@@ -1,8 +1,14 @@
-import { renderHook, RenderHookResult } from "@testing-library/react-hooks";
-import { act } from "react-dom/test-utils";
+import {
+  act,
+  renderHook,
+  RenderHookResult,
+} from "@testing-library/react-hooks";
 import { UserFormatted } from "../../../../server/api/user/dto/UserDTO";
+import HttpRequestService from "../../../../services/HttpRequestService";
 
 import { useAuthManager } from "../useAuthManager";
+
+jest.mock("../../../../services/HttpRequestService");
 
 describe("useAuthManager", () => {
   const USER_SESSION: UserFormatted = {
@@ -74,6 +80,20 @@ describe("useAuthManager", () => {
         it("should user stay null", () => {
           expect(result.result.current.selectors.user).toBe(null);
         });
+      });
+    });
+
+    describe("fetchSession", () => {
+      beforeEach(() => {
+        renderUseAuthManager();
+      });
+
+      it("should have made a request to get user session", () => {
+        act(() => {
+          result.result.current.actions.fetchSession();
+        });
+
+        expect(HttpRequestService.get).toHaveBeenCalledWith("/user/");
       });
     });
   });

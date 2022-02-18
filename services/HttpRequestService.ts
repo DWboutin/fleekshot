@@ -21,6 +21,30 @@ class HttpRequestService {
 
     return response.json();
   }
+
+  static async upload(endpoint: string, files: any, data: any = {}) {
+    const formData = new FormData();
+
+    Object.keys(files).forEach((filename) => {
+      formData.append(filename, files[filename]);
+    });
+
+    Object.keys(data).forEach((dataname) => {
+      formData.append(data, data[dataname]);
+    });
+
+    const response = await fetch(`${API_URL}${endpoint}`, {
+      method: "POST",
+      mode: "cors",
+      cache: "no-cache",
+      headers: {
+        Accept: "application/json",
+      },
+      body: formData,
+    });
+
+    return response.json();
+  }
 }
 
 export default HttpRequestService;

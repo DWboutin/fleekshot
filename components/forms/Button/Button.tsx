@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, SyntheticEvent } from "react";
 import styled from "styled-components";
 
 import { ThemeContainer } from "../../../styles/styles";
@@ -33,13 +33,19 @@ export type ButtonTypes = "submit" | "button";
 export interface Props {
   children: ReactNode;
   type?: ButtonTypes;
+  onClick?: (e: SyntheticEvent<HTMLButtonElement>) => void;
 }
 
 const Button: React.VoidFunctionComponent<Props> = ({
   children,
   type = "button",
+  onClick,
 }) => {
-  return <Container type={type}>{children}</Container>;
+  return (
+    <Container type={type} onClick={onClick}>
+      {children}
+    </Container>
+  );
 };
 
 export default Button;

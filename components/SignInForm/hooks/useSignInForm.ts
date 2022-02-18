@@ -10,14 +10,11 @@ import {
   useAuthContext,
 } from "../../AuthManager/components/AuthManager";
 
-export interface SignInFormSelectors {}
-
 export interface SignInFormActions {
   handleFormSubmit: (values: UserSignInData) => void;
 }
 
 export interface SignInFormHook {
-  selectors: SignInFormSelectors;
   actions: SignInFormActions;
 }
 
@@ -35,8 +32,6 @@ export function useSignInForm(): SignInFormHook {
   const handleFormSubmit = async (values: UserSignInData) => {
     const user: UserFormatted = await getUserSignIn(values);
 
-    console.log("signin user", { user });
-
     if (!!user.id) {
       authContext.handleAuth(user);
       router.push("/");
@@ -44,7 +39,6 @@ export function useSignInForm(): SignInFormHook {
   };
 
   return {
-    selectors: {},
     actions: {
       handleFormSubmit,
     },

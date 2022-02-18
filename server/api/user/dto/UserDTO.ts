@@ -16,6 +16,7 @@ export interface UserFormatted {
   id: string;
   name: string;
   username: string;
+  profilePicture?: string;
 }
 
 export interface UserComparePassword {

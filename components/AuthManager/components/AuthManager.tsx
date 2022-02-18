@@ -9,6 +9,7 @@ export interface AuthContextProps {
   isAuthenticated: boolean;
   user: UserFormatted | null;
   handleAuth: (session: UserFormatted) => void;
+  fetchSession: () => void;
 }
 
 export const AuthContext = createContext<Partial<AuthContextProps>>({});
@@ -26,7 +27,7 @@ export const useAuthContext = (): Partial<AuthContextProps> => {
 const AuthManager: NextPage = ({ children }) => {
   const {
     selectors: { isAuthenticated, user },
-    actions: { handleAuth },
+    actions: { handleAuth, fetchSession },
   } = useAuthManager();
 
   return (
@@ -35,6 +36,7 @@ const AuthManager: NextPage = ({ children }) => {
         isAuthenticated,
         user,
         handleAuth,
+        fetchSession,
       }}
     >
       {children}
