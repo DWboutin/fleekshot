@@ -18,13 +18,16 @@ const en: SignUpFormIntl = {
       },
     },
     button: {
-      submit: "submit",
+      submit: "Sign up",
+    },
+    message: {
+      success: "You're now signed up",
     },
     errors: {
-      tooShort: "Too short",
-      tooLong: "Too long",
+      tooShort: "Is too short",
+      tooLong: "Is too long",
       isRequired: "Is required",
-      notStrongEnough: "Not strong enough",
+      notStrongEnough: "Is not strong enough",
       mismatch: "Password mismatch",
     },
   },

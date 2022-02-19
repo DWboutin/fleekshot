@@ -9,6 +9,7 @@ import UserValidator from "../validators/UserValidator";
 import ImageOptimizationService, {
   ImagePaths,
 } from "../../../services/ImageOptimizer";
+import NoUserException from "../exceptions/NoUserException";
 
 class UserController {
   constructor(
@@ -22,7 +23,7 @@ class UserController {
     const validRawData = await this.validator.validateSignUpData(
       userSignUpData
     );
-    console.log({ validRawData });
+
     const userData = this.userFactory.createFromSignUp(validRawData);
     const user = new UserModel(userData);
 
@@ -33,35 +34,31 @@ class UserController {
   }
 
   public async signIn(userSignInData: UserSignInData) {
-    try {
-      const validRawData = await this.validator.validateSignInData(
-        userSignInData
+    const validRawData = await this.validator.validateSignInData(
+      userSignInData
+    );
+
+    const user = await UserModel.findOne({
+      username: validRawData.username,
+    });
+
+    if (user) {
+      const userPasswordCompare = this.userFactory.formatPasswordToCompare(
+        user,
+        validRawData.password
+      );
+      const isPasswordValid = await this.validator.validatePasswordWithModel(
+        userPasswordCompare
       );
 
-      const user = await UserModel.findOne({
-        username: validRawData.username,
-      });
+      if (isPasswordValid) {
+        const formattedUser = this.userFactory.formatFromDocument(user);
 
-      if (user) {
-        const userPasswordCompare = this.userFactory.formatPasswordToCompare(
-          user,
-          validRawData.password
-        );
-        const isPasswordValid = await this.validator.validatePasswordWithModel(
-          userPasswordCompare
-        );
-
-        if (isPasswordValid) {
-          const formattedUser = this.userFactory.formatFromDocument(user);
-
-          return formattedUser;
-        }
+        return formattedUser;
       }
-
-      return {};
-    } catch (err) {
-      return this.responseFactory.formatErrorResponse(err as Error);
     }
+
+    throw new NoUserException();
   }
 
   public async setProfilePicture(userId: string, file: Express.Multer.File) {
@@ -87,7 +84,6 @@ class UserController {
 
       return {};
     } catch (err) {
-      console.log(err);
       return this.responseFactory.formatErrorResponse(err as Error);
     }
   }

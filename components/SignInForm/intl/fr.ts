@@ -5,22 +5,25 @@ const fr: SignInFormIntl = {
     title: "Connexion",
     input: {
       username: {
-        label: "Nom D'utilisateur",
+        label: "Nom d'utilisateur",
       },
       password: {
         label: "Mot de passe",
       },
     },
     button: {
-      submit: "Submit",
+      submit: "Se connecter",
+    },
+    message: {
+      success: "Vous êtes maintenant connectés et serez redirigé",
     },
     errors: {
-      tooShort: "Trop court",
-      tooLong: "Trop long",
+      tooShort: "Est trop court",
+      tooLong: "Est trop long",
       isRequired: "Est requis",
-      notStrongEnough: "Trop faible",
+      notStrongEnough: "Est trop faible",
       mismatch: "Ne correspond pas",
-      noUser: "No user was found",
+      noUser: "Aucun utilisateur trouvé",
     },
   },
 };

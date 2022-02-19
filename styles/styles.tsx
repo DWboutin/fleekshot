@@ -5,6 +5,7 @@ export const colors = {
   grey: "#dbdbdb",
   grey2: "#999999",
   red: "#f6655a",
+  green: "#6BB700",
   lightBlue: "#44b5ff",
   blue: "#0095f6",
   blue2: "#0b7ec9",
@@ -35,6 +36,7 @@ export interface Theme {
   };
   forms: {
     errorColor: string;
+    successColor: string;
     container: {
       bg: string;
       border: string;
@@ -70,6 +72,9 @@ export interface Theme {
     color: string;
     hoverColor: string;
   };
+  animations: {
+    easeInOutQuint: string;
+  };
 }
 
 export const theme: Theme = {
@@ -94,6 +99,7 @@ export const theme: Theme = {
   },
   forms: {
     errorColor: colors.red,
+    successColor: colors.green,
     container: {
       bg: colors.white,
       border: colors.grey,
@@ -128,5 +134,8 @@ export const theme: Theme = {
   utilsLinks: {
     color: colors.grey2,
     hoverColor: colors.black,
+  },
+  animations: {
+    easeInOutQuint: "cubic-bezier(0.83, 0, 0.17, 1)",
   },
 };

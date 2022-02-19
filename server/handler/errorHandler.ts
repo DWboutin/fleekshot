@@ -2,48 +2,57 @@ import { NextFunction, Request, Response } from "express";
 import { MongoError, MongoServerError } from "mongodb";
 import { Error } from "mongoose";
 import { ValidationError } from "yup";
+import NoUserException from "../api/user/exceptions/NoUserException";
 // import { YupValidationError } from "../validator/DataValidator";
 
-export enum ErrorNames {
-  DuplicateInDatabase = "Duplicate in database",
+export enum ErrorCodes {
+  DuplicateInDatabase = 1000,
+  ValidationError,
+  NoUser,
+}
+
+export interface ErrorMessage {
+  field?: string;
+  value?: string;
+  message: string | null;
 }
 
 export const handleValidationError = (err: ValidationError, res: Response) => {
   const code = 400;
-  const errors: { [key: string]: string[] } = {};
-  err.inner.forEach((e) => {
-    if (e.path && !(e.path in errors)) {
-      errors[e.path] = [];
-    }
+  const errorCode = ErrorCodes.ValidationError;
+  const errors: ErrorMessage[] = err.inner.map((e) => ({
+    field: e.path as string,
+    message: e.message,
+    value: e.value,
+  }));
 
-    errors[e.path as string].push(e.message as string);
-  });
-
-  res.status(code).send({ success: false, messages: errors });
-};
-
-export const handleFieldValidationError = (
-  err: ValidationError,
-  res: Response
-) => {
-  const errors = err.errors.join(", ");
-  const code = 400;
-
-  res.status(code).send({ success: false, messages: errors, value: err.value });
+  res.status(code).send({ success: false, errorCode, messages: errors });
 };
 
 export const handleDuplicateError = (err: MongoServerError, res: Response) => {
-  const name = ErrorNames.DuplicateInDatabase;
+  const errorCode = ErrorCodes.DuplicateInDatabase;
   const messages = Object.keys(err.keyValue).map((field) => ({
     field,
     value: err.keyValue[field],
-    message: `${field} must be unique, "${err.keyValue[field]}" can't be a duplicate`,
+    message: null,
   }));
   const code = 400;
 
   res
     .status(code)
-    .send({ success: false, name, messages: messages, value: err.value });
+    .send({ success: false, errorCode, messages: messages, value: err.value });
+};
+
+export const handleNoUserError = (err: NoUserException, res: Response) => {
+  const code = 200;
+  const errorCode = ErrorCodes.NoUser;
+  const errors: ErrorMessage[] = [
+    {
+      message: err.message,
+    },
+  ];
+
+  res.status(code).send({ success: false, errorCode, messages: errors });
 };
 
 const errorHandler = (
@@ -59,13 +68,13 @@ const errorHandler = (
     if (err.name === "ValidationError") {
       return handleValidationError(err as ValidationError, res);
     }
-    if (err.name === "YupValidationError") {
-      return handleFieldValidationError(err as ValidationError, res);
+    if (err.name === "NoUser") {
+      return handleNoUserError(err as NoUserException, res);
     }
   } catch (err) {
     return res
       .status(500)
-      .send({ success: false, messages: `An unknown error occured.` });
+      .send({ success: false, messages: `An unknown error occured.`, err });
   }
 };
 
