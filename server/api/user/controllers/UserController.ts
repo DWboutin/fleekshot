@@ -1,4 +1,7 @@
+import mongoose from "mongoose";
+
 import { UserSignInData, UserSignUpData } from "../dto/UserDTO";
+import UserResponseFactory from "../factories/UserResponseFactory";
 import { UserFactory } from "../factories/UserFactory";
 
 import UserModel from "../models/UserModel";
@@ -12,7 +15,8 @@ class UserController {
   constructor(
     private validator: UserValidator,
     private userFactory: UserFactory,
-    private imageOptimizer: ImageOptimizationService
+    private imageOptimizer: ImageOptimizationService,
+    private responseFactory: UserResponseFactory
   ) {}
 
   public async create(userSignUpData: UserSignUpData) {
