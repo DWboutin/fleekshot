@@ -63,7 +63,6 @@ export function useSignInForm(): SignInFormHook {
 
     setIsLoading(false);
     setIsSuccesful(response.success);
-    setIsRequested(true);
 
     if (response.success) {
       setRequestMessages([
@@ -80,6 +79,8 @@ export function useSignInForm(): SignInFormHook {
       setErrorCode(response.errorCode as ErrorCodes);
       setRequestMessages(response.messages as RequestResponseMessages[]);
     }
+
+    setIsRequested(true);
   };
 
   return {
