@@ -1,7 +1,4 @@
-import mongoose from "mongoose";
-
 import { UserSignInData, UserSignUpData } from "../dto/UserDTO";
-import UserResponseFactory from "../factories/UserResponseFactory";
 import { UserFactory } from "../factories/UserFactory";
 
 import UserModel from "../models/UserModel";
@@ -15,8 +12,7 @@ class UserController {
   constructor(
     private validator: UserValidator,
     private userFactory: UserFactory,
-    private imageOptimizer: ImageOptimizationService,
-    private responseFactory: UserResponseFactory
+    private imageOptimizer: ImageOptimizationService
   ) {}
 
   public async create(userSignUpData: UserSignUpData) {
@@ -62,30 +58,26 @@ class UserController {
   }
 
   public async setProfilePicture(userId: string, file: Express.Multer.File) {
-    try {
-      const user = await UserModel.findByIdAndUpdate(userId, {
-        profilePicture: file.filename,
-      });
+    const user = await UserModel.findByIdAndUpdate(userId, {
+      profilePicture: file.filename,
+    });
 
-      if (user) {
-        await user.save();
+    if (user) {
+      await user.save();
 
-        await this.imageOptimizer.minifyAvatarImage(
-          file,
-          ImagePaths.MinifiedProfilePicture
-        );
+      await this.imageOptimizer.minifyAvatarImage(
+        file,
+        ImagePaths.MinifiedProfilePicture
+      );
 
-        const updatedUser = await UserModel.findById(userId);
+      const updatedUser = await UserModel.findById(userId);
 
-        if (updatedUser) {
-          return this.userFactory.formatFromDocument(updatedUser);
-        }
+      if (updatedUser) {
+        return this.userFactory.formatFromDocument(updatedUser);
       }
-
-      return {};
-    } catch (err) {
-      return this.responseFactory.formatErrorResponse(err as Error);
     }
+
+    return {};
   }
 }
 

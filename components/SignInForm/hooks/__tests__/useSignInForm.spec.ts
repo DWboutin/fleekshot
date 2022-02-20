@@ -14,41 +14,44 @@ describe("useSignInForm", () => {
     username: "USER NAME",
     password: "PASSWORD",
   };
-  let result: RenderHookResult<
-    Parameters<typeof useSignInForm>,
-    ReturnType<typeof useSignInForm>
-  >;
 
-  const renderUseSignInForm = () => {
-    result = renderHook(() => useSignInForm());
-  };
+  describe("hook", () => {
+    let result: RenderHookResult<
+      Parameters<typeof useSignInForm>,
+      ReturnType<typeof useSignInForm>
+    >;
 
-  beforeEach(() => {
-    jest.resetModules();
-    jest.clearAllMocks();
+    const renderUseSignInForm = () => {
+      result = renderHook(() => useSignInForm());
+    };
 
-    jest
-      .spyOn(nextRouter, "useRouter")
-      .mockImplementation(() => ({ route: "/" } as nextRouter.NextRouter));
-    jest
-      .spyOn(authManager, "useAuthContext")
-      .mockImplementation(
-        () => ({ user: { id: "FAKE_ID" } } as authManager.AuthContextProps)
-      );
-  });
-
-  describe("handleFormSubmit", () => {
     beforeEach(() => {
-      renderUseSignInForm();
+      jest.resetModules();
+      jest.clearAllMocks();
+
+      jest
+        .spyOn(nextRouter, "useRouter")
+        .mockImplementation(() => ({ route: "/" } as nextRouter.NextRouter));
+      jest
+        .spyOn(authManager, "useAuthContext")
+        .mockImplementation(
+          () => ({ user: { id: "FAKE_ID" } } as authManager.AuthContextProps)
+        );
     });
 
-    it("should have made a request to sign in", () => {
-      act(() => {
-        result.result.current.actions.handleFormSubmit(SIGN_IN);
+    describe("handleFormSubmit", () => {
+      beforeEach(() => {
+        renderUseSignInForm();
       });
 
-      expect(HttpRequestService.post).toHaveBeenCalledWith("/user/sign-in", {
-        user: SIGN_IN,
+      it("should have made a request to sign in", async () => {
+        act(() => {
+          result.result.current.actions.handleFormSubmit(SIGN_IN);
+        });
+
+        expect(HttpRequestService.post).toHaveBeenCalledWith("/user/sign-in", {
+          user: SIGN_IN,
+        });
       });
     });
   });
