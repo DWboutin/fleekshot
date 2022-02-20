@@ -3,9 +3,11 @@ import mongoose from "mongoose";
 import {
   UserComparePassword,
   UserDocument,
+  UserFormatted,
   UserSignInData,
   UserSignUpData,
 } from "../../dto/UserDTO";
+import UserResponseFactory from "../../factories/UserResponseFactory";
 import UserModel, { User } from "../../models/UserModel";
 import UserValidator from "../../validators/UserValidator";
 import UserFactory from "../../factories/UserFactory";
@@ -16,6 +18,7 @@ import ImageOptimizationService, {
 import NoUserException from "../../exceptions/NoUserException";
 
 jest.mock("../../validators/UserValidator");
+jest.mock("../../factories/UserResponseFactory");
 jest.mock("../../factories/UserFactory");
 jest.mock("../../../../services/ImageOptimizer");
 
@@ -25,6 +28,12 @@ describe("UserController", () => {
     name: "NAME",
     username: "USERNAME",
     password: "PASSWORD",
+  };
+  const USER_FORMATTED: UserFormatted = {
+    id: ID,
+    name: "NAME",
+    username: "USERNAME",
+    profilePicture: "PROFILE PICTURE",
   };
   const USER_DOCUMENT: UserDocument = {
     _id: ID,
@@ -41,16 +50,27 @@ describe("UserController", () => {
 
   const userValidator = new UserValidator();
   const userFactory = new UserFactory({} as any);
+  const responseFactory = new UserResponseFactory();
   const imageOptimizer = new ImageOptimizationService();
   const userController = new UserController(
     userValidator as any,
     userFactory as any,
-    imageOptimizer as any
+    imageOptimizer as any,
+    responseFactory as any
   );
+
+  const formatErrorResponse = (value: any) => ({
+    statusCode: ERROR_STATUS_CODE,
+    body: value,
+  });
 
   beforeEach(() => {
     jest.resetModules();
     jest.clearAllMocks();
+
+    responseFactory.formatErrorResponse = jest
+      .fn()
+      .mockImplementation(formatErrorResponse);
 
     userFactory.formatFromDocument = jest.fn().mockImplementation(() => USER);
   });
