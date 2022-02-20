@@ -55,7 +55,9 @@ describe("useSignInForm", () => {
 
   describe("getUserSignIn", () => {
     it("should have made a request to sign in", () => {
-      getUserSignIn(SIGN_IN);
+      act(() => {
+        getUserSignIn(SIGN_IN);
+      });
 
       expect(HttpRequestService.post).toHaveBeenCalledWith("/user/sign-in", {
         user: SIGN_IN,

@@ -15,6 +15,7 @@ import UserController from "../UserController";
 import ImageOptimizationService, {
   ImagePaths,
 } from "../../../../services/ImageOptimizer";
+import NoUserException from "../../exceptions/NoUserException";
 
 jest.mock("../../validators/UserValidator");
 jest.mock("../../factories/UserResponseFactory");
@@ -112,13 +113,18 @@ describe("UserController", () => {
       });
 
       it("should handle the error", async () => {
-        const value = await userController.create(RAW_USER);
+        let error;
+
+        try {
+          await userController.create(RAW_USER);
+        } catch (err: any) {
+          error = err;
+        }
 
         expect(userValidator.validateSignUpData).toHaveBeenCalledWith(RAW_USER);
         expect(userFactory.createFromSignUp).toHaveBeenCalledWith(RAW_USER);
         expect(UserModel.prototype.save).toHaveBeenCalled();
-        expect(responseFactory.formatErrorResponse).toHaveBeenCalledWith(ERROR);
-        expect(value).toEqual(formatErrorResponse(ERROR));
+        expect(error).toEqual(ERROR);
       });
     });
 
@@ -129,11 +135,16 @@ describe("UserController", () => {
       });
 
       it("should handle the error", async () => {
-        const value = await userController.create(RAW_USER);
+        let error;
+
+        try {
+          await userController.create(RAW_USER);
+        } catch (err: any) {
+          error = err;
+        }
 
         expect(userValidator.validateSignUpData).toHaveBeenCalledWith(RAW_USER);
-        expect(responseFactory.formatErrorResponse).toHaveBeenCalledWith(ERROR);
-        expect(value).toEqual(formatErrorResponse(ERROR));
+        expect(error).toEqual(ERROR);
       });
     });
   });
@@ -190,13 +201,19 @@ describe("UserController", () => {
       });
     });
 
-    describe("valid request with empty user", () => {
+    describe("with empty user", () => {
       beforeEach(() => {
         UserModel.findOne = jest.fn().mockResolvedValue(null);
       });
 
-      it("should not find a user and return an empty array", async () => {
-        const value = await userController.signIn(RAW_USER_SIGNIN);
+      it("should not find a user and throw a NoUserException", async () => {
+        let error;
+
+        try {
+          await userController.signIn(RAW_USER_SIGNIN);
+        } catch (err) {
+          error = err;
+        }
 
         expect(userValidator.validateSignInData).toHaveBeenCalledWith(
           RAW_USER_SIGNIN
@@ -209,7 +226,7 @@ describe("UserController", () => {
           userValidator.validatePasswordWithModel
         ).not.toHaveBeenCalledWith();
         expect(userFactory.formatFromDocument).not.toHaveBeenCalledWith();
-        expect(value).toEqual({});
+        expect(error).toEqual(new NoUserException());
       });
     });
 
@@ -220,12 +237,15 @@ describe("UserController", () => {
       });
 
       it("should handle the error", async () => {
-        const value = await userController.signIn(RAW_USER_SIGNIN);
+        let error;
 
-        expect(userValidator.validateSignInData).toHaveBeenCalledWith(
-          RAW_USER_SIGNIN
-        );
-        expect(value).toEqual(formatErrorResponse(ERROR));
+        try {
+          await userController.signIn(RAW_USER_SIGNIN);
+        } catch (err: any) {
+          error = err;
+        }
+
+        expect(error).toEqual(ERROR);
       });
     });
   });

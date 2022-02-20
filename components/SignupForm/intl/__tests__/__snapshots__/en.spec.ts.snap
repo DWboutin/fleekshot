@@ -4,14 +4,14 @@ exports[`intl SignUpForm en should match snapshot 1`] = `
 Object {
   "signUpForm": Object {
     "button": Object {
-      "submit": "submit",
+      "submit": "Sign up",
     },
     "errors": Object {
       "isRequired": "Is required",
       "mismatch": "Password mismatch",
-      "notStrongEnough": "Not strong enough",
-      "tooLong": "Too long",
-      "tooShort": "Too short",
+      "notStrongEnough": "Is not strong enough",
+      "tooLong": "Is too long",
+      "tooShort": "Is too short",
     },
     "input": Object {
       "confirmPassword": Object {
@@ -26,6 +26,9 @@ Object {
       "username": Object {
         "label": "Username",
       },
+    },
+    "message": Object {
+      "success": "You're now signed up",
     },
     "title": "Sign up",
   },

@@ -31,6 +31,22 @@ describe("storageService", () => {
 
       expect(result).toBe(null);
     });
+
+    describe("on parsing error", () => {
+      beforeEach(() => {
+        jest
+          .spyOn(window.localStorage, "getItem")
+          .mockImplementation(() => "[abcd");
+        jest.spyOn(console, "warn").mockImplementation(() => {});
+      });
+
+      it("should return null and console.warn the error", () => {
+        const result = storageService.get(A_KEY);
+
+        expect(console.warn).toHaveBeenCalled();
+        expect(result).toBe(null);
+      });
+    });
   });
 
   describe("set", () => {

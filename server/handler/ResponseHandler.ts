@@ -11,7 +11,7 @@ export interface RequestResponse<T> {
   success: boolean;
   data: T;
   errorCode?: ErrorCodes;
-  messages: RequestResponseMessages[];
+  messages?: RequestResponseMessages[];
 }
 
 class ResponseHandler {
