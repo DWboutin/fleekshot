@@ -9,6 +9,7 @@ import UserValidator from "../validators/UserValidator";
 import ImageOptimizationService, {
   ImagePaths,
 } from "../../../services/ImageOptimizer";
+import NoUserException from "../exceptions/NoUserException";
 
 class UserController {
   constructor(
@@ -19,59 +20,50 @@ class UserController {
   ) {}
 
   public async create(userSignUpData: UserSignUpData) {
-    try {
-      const validRawData = await this.validator.validateSignUpData(
-        userSignUpData
-      );
-      const userData = this.userFactory.createFromSignUp(validRawData);
-      const user = new UserModel(userData);
+    const validRawData = await this.validator.validateSignUpData(
+      userSignUpData
+    );
 
-      const result = await user.save();
-      const formattedUser = this.userFactory.formatFromDocument(result);
+    const userData = this.userFactory.createFromSignUp(validRawData);
+    const user = new UserModel(userData);
 
-      return formattedUser;
-    } catch (err) {
-      return this.responseFactory.formatErrorResponse(err as Error);
-    }
+    const result = await user.save();
+    const formattedUser = this.userFactory.formatFromDocument(result);
+
+    return formattedUser;
   }
 
   public async signIn(userSignInData: UserSignInData) {
-    try {
-      const validRawData = await this.validator.validateSignInData(
-        userSignInData
+    const validRawData = await this.validator.validateSignInData(
+      userSignInData
+    );
+
+    const user = await UserModel.findOne({
+      username: validRawData.username,
+    });
+
+    if (user) {
+      const userPasswordCompare = this.userFactory.formatPasswordToCompare(
+        user,
+        validRawData.password
+      );
+      const isPasswordValid = await this.validator.validatePasswordWithModel(
+        userPasswordCompare
       );
 
-      const user = await UserModel.findOne({
-        username: validRawData.username,
-      });
+      if (isPasswordValid) {
+        const formattedUser = this.userFactory.formatFromDocument(user);
 
-      if (user) {
-        const userPasswordCompare = this.userFactory.formatPasswordToCompare(
-          user,
-          validRawData.password
-        );
-        const isPasswordValid = await this.validator.validatePasswordWithModel(
-          userPasswordCompare
-        );
-
-        if (isPasswordValid) {
-          const formattedUser = this.userFactory.formatFromDocument(user);
-
-          return formattedUser;
-        }
+        return formattedUser;
       }
-
-      return {};
-    } catch (err) {
-      return this.responseFactory.formatErrorResponse(err as Error);
     }
+
+    throw new NoUserException();
   }
 
   public async setProfilePicture(userId: string, file: Express.Multer.File) {
     try {
-      const id = new mongoose.Types.ObjectId(userId);
-
-      const user = await UserModel.findByIdAndUpdate(id, {
+      const user = await UserModel.findByIdAndUpdate(userId, {
         profilePicture: file.filename,
       });
 
@@ -83,7 +75,7 @@ class UserController {
           ImagePaths.MinifiedProfilePicture
         );
 
-        const updatedUser = await UserModel.findById(id);
+        const updatedUser = await UserModel.findById(userId);
 
         if (updatedUser) {
           return this.userFactory.formatFromDocument(updatedUser);
@@ -92,7 +84,6 @@ class UserController {
 
       return {};
     } catch (err) {
-      console.log(err);
       return this.responseFactory.formatErrorResponse(err as Error);
     }
   }

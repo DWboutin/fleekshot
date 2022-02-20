@@ -12,7 +12,9 @@ class UserValidator {
   public async validateSignUpData(userSignUpData: UserSignUpData) {
     const validator = new DataValidator<UserSignUpData>(userCreationSchema);
 
-    const validatedData = await validator.validate(userSignUpData);
+    const validatedData = await validator.validate(userSignUpData, {
+      abortEarly: false,
+    });
 
     return validatedData;
   }
@@ -20,7 +22,9 @@ class UserValidator {
   public async validateSignInData(userSignInData: UserSignInData) {
     const validator = new DataValidator<UserSignInData>(userSignInSchema);
 
-    const validatedData = await validator.validate(userSignInData);
+    const validatedData = await validator.validate(userSignInData, {
+      abortEarly: false,
+    });
 
     return validatedData;
   }
@@ -33,7 +37,9 @@ class UserValidator {
         userPasswordCompareSchema
       );
 
-      await validator.validate(userComparePassword);
+      await validator.validate(userComparePassword, {
+        abortEarly: false,
+      });
 
       return true;
     } catch (err) {

@@ -47,7 +47,7 @@ const ProfilPictureForm: React.VoidFunctionComponent<Props> = ({}) => {
         }
       );
 
-      if (result.id) {
+      if (result.data.id) {
         fetchSession();
       }
     },

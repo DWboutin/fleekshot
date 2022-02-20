@@ -4,6 +4,7 @@ import {
   RenderHookResult,
 } from "@testing-library/react-hooks";
 import { UserFormatted } from "../../../../server/api/user/dto/UserDTO";
+import { RequestResponse } from "../../../../server/handler/ResponseHandler";
 import HttpRequestService from "../../../../services/HttpRequestService";
 
 import { useAuthManager } from "../useAuthManager";
@@ -11,10 +12,13 @@ import { useAuthManager } from "../useAuthManager";
 jest.mock("../../../../services/HttpRequestService");
 
 describe("useAuthManager", () => {
-  const USER_SESSION: UserFormatted = {
-    id: "ID",
-    name: "NAME",
-    username: "USERNAME",
+  const USER_SESSION: RequestResponse<UserFormatted> = {
+    success: true,
+    data: {
+      id: "ID",
+      name: "NAME",
+      username: "USERNAME",
+    },
   };
   let result: RenderHookResult<
     Parameters<typeof useAuthManager>,
@@ -60,7 +64,9 @@ describe("useAuthManager", () => {
         });
 
         it("should put the session into user", () => {
-          expect(result.result.current.selectors.user).toEqual(USER_SESSION);
+          expect(result.result.current.selectors.user).toEqual(
+            USER_SESSION.data
+          );
         });
       });
 

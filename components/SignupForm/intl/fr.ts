@@ -8,7 +8,7 @@ const fr: SignUpFormIntl = {
         label: "Nom complet",
       },
       username: {
-        label: "Nom D'utilisateur",
+        label: "Nom d'utilisateur",
       },
       password: {
         label: "Mot de passe",
@@ -18,13 +18,16 @@ const fr: SignUpFormIntl = {
       },
     },
     button: {
-      submit: "submit",
+      submit: "S'inscrire",
+    },
+    message: {
+      success: "Vous êtes maintenant inscrits",
     },
     errors: {
-      tooShort: "Trop court",
-      tooLong: "Trop long",
+      tooShort: "Est trop court",
+      tooLong: "Est trop long",
       isRequired: "Est requis",
-      notStrongEnough: "Trop faible",
+      notStrongEnough: "Est trop faible",
       mismatch: "Ne correspond pas",
     },
   },

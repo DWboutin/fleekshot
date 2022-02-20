@@ -3,10 +3,12 @@
 exports[`<Button /> default rendering should match snapshot 1`] = `
 <div>
   <button
-    class="sc-bdvvtL cYCVNa"
+    class="sc-bdvvtL cApkZc"
     type="button"
   >
-    children
+    <span>
+      children
+    </span>
   </button>
 </div>
 `;

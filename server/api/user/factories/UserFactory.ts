@@ -30,7 +30,7 @@ class UserFactoryImpl implements UserFactory {
 
   formatFromDocument(userDocument: UserDocument) {
     return {
-      id: userDocument._id.toString(),
+      id: userDocument._id,
       name: userDocument.name,
       username: userDocument.username,
       profilePicture: userDocument.profilePicture,

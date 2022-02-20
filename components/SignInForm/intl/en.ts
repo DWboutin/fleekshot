@@ -12,13 +12,16 @@ const en: SignInFormIntl = {
       },
     },
     button: {
-      submit: "Submit",
+      submit: "Sign in",
+    },
+    message: {
+      success: "You're now signed in and will be redirected",
     },
     errors: {
-      tooShort: "Too short",
-      tooLong: "Too long",
+      tooShort: "Is too short",
+      tooLong: "Is too long",
       isRequired: "Is required",
-      notStrongEnough: "Not strong enough",
+      notStrongEnough: "Is not strong enough",
       mismatch: "Password mismatch",
       noUser: "No user was found",
     },

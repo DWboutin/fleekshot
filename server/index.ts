@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 import sessions from "express-session";
 
 import api from "./api";
+import errorHandler from "./handler/errorHandler";
 
 declare module "express-session" {
   export interface SessionData {
@@ -49,6 +50,7 @@ mongoose.connect(
     );
 
     server.use(api);
+    server.use(errorHandler);
 
     server.all("*", (req: Request, res: Response) => {
       return handle(req, res);

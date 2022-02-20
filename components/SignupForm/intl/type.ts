@@ -18,6 +18,9 @@ export interface SignUpFormIntl {
     button: {
       submit: string;
     };
+    message: {
+      success: string;
+    };
     errors: {
       tooShort: string;
       tooLong: string;
@@ -35,6 +38,7 @@ export enum SignUpFormIntlId {
   signUpForm_input_password_label = "signUpForm_input_password_label",
   signUpForm_input_confirmPassword_label = "signUpForm_input_confirmPassword_label",
   signUpForm_button_submit = "signUpForm_button_submit",
+  signUpForm_message_success = "signUpForm_message_success",
   signUpForm_errors_tooShort = "signUpForm_errors_tooShort",
   signUpForm_errors_tooLong = "signUpForm_errors_tooLong",
   signUpForm_errors_isRequired = "signUpForm_errors_isRequired",

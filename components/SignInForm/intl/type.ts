@@ -12,6 +12,9 @@ export interface SignInFormIntl {
     button: {
       submit: string;
     };
+    message: {
+      success: string;
+    };
     errors: {
       tooShort: string;
       tooLong: string;
@@ -28,6 +31,7 @@ export enum SignInFormIntlId {
   signInForm_input_username_label = "signInForm_input_username_label",
   signInForm_input_password_label = "signInForm_input_password_label",
   signInForm_button_submit = "signInForm_button_submit",
+  signInForm_message_success = "signInForm_message_success",
   signInForm_errors_tooShort = "signInForm_errors_tooShort",
   signInForm_errors_tooLong = "signInForm_errors_tooLong",
   signInForm_errors_isRequired = "signInForm_errors_isRequired",

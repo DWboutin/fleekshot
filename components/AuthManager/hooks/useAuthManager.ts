@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { UserFormatted } from "../../../server/api/user/dto/UserDTO";
+import { RequestResponse } from "../../../server/handler/ResponseHandler";
 import HttpRequestService from "../../../services/HttpRequestService";
 
 export interface AuthManagerSelectors {
@@ -8,7 +9,7 @@ export interface AuthManagerSelectors {
 }
 
 export interface AuthManagerActions {
-  handleAuth: (session: UserFormatted) => void;
+  handleAuth: (session: RequestResponse<UserFormatted>) => void;
   fetchSession: () => void;
 }
 
@@ -27,10 +28,10 @@ export function useAuthManager(): AuthManagerHook {
     handleAuth(session);
   };
 
-  const handleAuth = (session: UserFormatted) => {
-    if (!!session?.id) {
+  const handleAuth = (session: RequestResponse<UserFormatted>) => {
+    if (session?.success) {
       setIsAuthenticated(true);
-      setUser(session);
+      setUser(session.data);
     }
   };
 
