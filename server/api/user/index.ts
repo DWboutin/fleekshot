@@ -9,7 +9,6 @@ import UserFactoryImpl from "./factories/UserFactory";
 import EncryptionServiceImpl from "../../services/EncryptionService";
 import { UserFormatted, UserSignUpData } from "./dto/UserDTO";
 import UserValidator from "./validators/UserValidator";
-import UserErrorResponseFactory from "./factories/UserResponseFactory";
 import ResponseHandler from "../../handler/ResponseHandler";
 import path from "path";
 import ImageOptimizationService, {
@@ -55,13 +54,11 @@ const upload = multer({
 
 const validator = new UserValidator();
 const userFactory = new UserFactoryImpl(encryptionService);
-const userErrorResponseFactory = new UserErrorResponseFactory();
 const imageOptimizer = new ImageOptimizationService();
 const userController = new UserController(
   validator,
   userFactory,
-  imageOptimizer,
-  userErrorResponseFactory
+  imageOptimizer
 );
 
 routes.post("/", async (req: Request, res: Response, next: NextFunction) => {
