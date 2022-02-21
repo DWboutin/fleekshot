@@ -3,13 +3,14 @@ import {
   UserDocument,
   UserFormatted,
   UserSignUpData,
+  UserSignUpRawData,
 } from "../dto/UserDTO";
 import { User } from "../models/UserModel";
 import { EncryptionService } from "../../../services/EncryptionService";
 import { Document } from "mongoose";
 
 export interface UserFactory {
-  createFromSignUp(userRawData: UserSignUpData): User;
+  createFromSignUp(userRawData: UserSignUpRawData): UserSignUpData;
   formatFromDocument(userDocument: UserDocument): UserFormatted;
   formatPasswordToCompare(
     userDocument: UserDocument,
@@ -20,7 +21,7 @@ export interface UserFactory {
 class UserFactoryImpl implements UserFactory {
   constructor(private encryptionServive: EncryptionService) {}
 
-  createFromSignUp(userRawData: UserSignUpData): User {
+  createFromSignUp(userRawData: UserSignUpRawData): UserSignUpData {
     return {
       name: userRawData.name,
       username: userRawData.username,

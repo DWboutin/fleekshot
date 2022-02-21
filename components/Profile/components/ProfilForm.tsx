@@ -1,5 +1,6 @@
 import { useFormik } from "formik";
 import React from "react";
+import { useIntl } from "react-intl";
 import styled from "styled-components";
 import HttpRequestService from "../../../services/HttpRequestService";
 import userAvatarSchema from "../../../validations/userAvatarSchema";
@@ -7,11 +8,11 @@ import {
   AuthContextProps,
   useAuthContext,
 } from "../../AuthManager/components/AuthManager";
-import Button from "../../forms/Button/Button";
+import UploadField from "../../forms/UploadField/UploadField";
+import { ProfileIntlId } from "../intl/type";
 import ProfilePicture, {
   Container as ProfilePictureContainer,
 } from "./ProfilePicture";
-import ProfilPictureUpload from "./ProfilPictureUpload";
 
 interface ContainerProps {
   enctype: string;
@@ -30,6 +31,7 @@ const Form = styled.form<ContainerProps>`
 interface Props {}
 
 const ProfilPictureForm: React.VoidFunctionComponent<Props> = ({}) => {
+  const intl = useIntl();
   const { user, fetchSession } = useAuthContext() as AuthContextProps;
   const { handleSubmit, setFieldValue } = useFormik({
     initialValues: {
@@ -61,7 +63,13 @@ const ProfilPictureForm: React.VoidFunctionComponent<Props> = ({}) => {
   return (
     <Form enctype="multipart/form-data">
       <ProfilePicture />
-      <ProfilPictureUpload inputName="avatar" handleChange={handleFileChange} />
+      <UploadField
+        inputName="avatar"
+        handleChange={handleFileChange}
+        buttonLabel={intl.formatMessage({
+          id: ProfileIntlId.profile_uploadPicture,
+        })}
+      />
     </Form>
   );
 };

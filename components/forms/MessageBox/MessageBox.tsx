@@ -79,7 +79,7 @@ const MessageBox: React.VoidFunctionComponent<Props> = ({
           messages.map(({ field, value, message }) => {
             const fieldKey = `httpErrors_field_${field}`;
 
-            if (!errorCode && message) {
+            if ((!errorCode || !field) && message) {
               return (
                 <FormattedMessage tagName="div" id={message} key={message} />
               );

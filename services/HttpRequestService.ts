@@ -30,7 +30,7 @@ class HttpRequestService {
     });
 
     Object.keys(data).forEach((dataname) => {
-      formData.append(data, data[dataname]);
+      formData.append(dataname, data[dataname]);
     });
 
     const response = await fetch(`${API_URL}${endpoint}`, {

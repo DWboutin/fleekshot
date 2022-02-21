@@ -2,6 +2,7 @@ import Image from "next/image";
 import path from "path";
 import React from "react";
 import styled from "styled-components";
+import ImagePaths from "../../../server/services/ImagePaths";
 import { ThemeContainer } from "../../../styles/styles";
 import { useAuthContext } from "../../AuthManager/components/AuthManager";
 
@@ -27,8 +28,6 @@ interface Props {
   size?: ProfilPictureSize;
 }
 
-const baseProfilePicturePath = "/uploads/user/resized";
-
 const ProfilePicture: React.VoidFunctionComponent<Props> = ({
   size = ProfilPictureSize.big,
 }) => {
@@ -38,7 +37,10 @@ const ProfilePicture: React.VoidFunctionComponent<Props> = ({
     <Container size={size}>
       {user?.profilePicture && (
         <Image
-          src={path.resolve(baseProfilePicturePath, user.profilePicture)}
+          src={path.resolve(
+            ImagePaths.MinifiedProfilePicture,
+            user.profilePicture
+          )}
           alt="Profile picture"
           width={size}
           height={size}

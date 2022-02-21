@@ -6,11 +6,12 @@ import {
   UserComparePassword,
   UserSignInData,
   UserSignUpData,
+  UserSignUpRawData,
 } from "../dto/UserDTO";
 
 class UserValidator {
-  public async validateSignUpData(userSignUpData: UserSignUpData) {
-    const validator = new DataValidator<UserSignUpData>(userCreationSchema);
+  public async validateSignUpData(userSignUpData: UserSignUpRawData) {
+    const validator = new DataValidator<UserSignUpRawData>(userCreationSchema);
 
     const validatedData = await validator.validate(userSignUpData, {
       abortEarly: false,

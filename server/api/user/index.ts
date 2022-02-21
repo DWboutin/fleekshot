@@ -1,25 +1,23 @@
 import express, { NextFunction, Request, Response } from "express";
+import path from "path";
 import dotenv from "dotenv";
 import multer from "multer";
-import sharp from "sharp";
 import { v4 as uuidv4 } from "uuid";
 
 import UserController from "./controllers/UserController";
 import UserFactoryImpl from "./factories/UserFactory";
 import EncryptionServiceImpl from "../../services/EncryptionService";
-import { UserFormatted, UserSignUpData } from "./dto/UserDTO";
+import {
+  UserFormatted,
+  UserSignUpData,
+  UserSignUpRawData,
+} from "./dto/UserDTO";
 import UserValidator from "./validators/UserValidator";
 import ResponseHandler from "../../handler/ResponseHandler";
-import path from "path";
-import ImageOptimizationService, {
-  ImagePaths,
-} from "../../services/ImageOptimizer";
+import ImageOptimizationService from "../../services/ImageOptimizer";
+import ImagePaths from "../../services/ImagePaths";
 
 dotenv.config();
-
-const encryptionService = new EncryptionServiceImpl(
-  process.env.ENCRYPTION_KEY as string
-);
 
 const routes = express.Router();
 
@@ -32,7 +30,7 @@ const acceptedMimetypes = [
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, ImagePaths.ProfilePicture);
+    cb(null, path.resolve("public", ImagePaths.ProfilePicture));
   },
   filename: function (req, file, cb) {
     const ext = path.extname(file.originalname);
@@ -47,11 +45,14 @@ const upload = multer({
     if (acceptedMimetypes.includes(file.mimetype)) {
       cb(null, true);
     } else {
-      cb(null, true);
+      cb(null, false);
     }
   },
 });
 
+const encryptionService = new EncryptionServiceImpl(
+  process.env.ENCRYPTION_KEY as string
+);
 const validator = new UserValidator();
 const userFactory = new UserFactoryImpl(encryptionService);
 const imageOptimizer = new ImageOptimizationService();
@@ -63,7 +64,7 @@ const userController = new UserController(
 
 routes.post("/", async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const userSignUpData: UserSignUpData = req.body.user;
+    const userSignUpData: UserSignUpRawData = req.body.user;
 
     const createdUser = await userController.create(userSignUpData);
 
@@ -115,6 +116,19 @@ routes.post(
       req.session.user = user as UserFormatted;
 
       return ResponseHandler.build(res, 200, user);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+routes.get(
+  "/logout",
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      return req.session.destroy(() => {
+        return ResponseHandler.build(res, 200, {});
+      });
     } catch (err) {
       next(err);
     }
