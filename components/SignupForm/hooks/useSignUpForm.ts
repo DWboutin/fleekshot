@@ -30,7 +30,7 @@ export interface SignUpFormHook {
   actions: SignUpFormActions;
 }
 
-export const saveUser = async (user: User) => {
+export const saveUser = async (user: UserSignUpData) => {
   const result = await HttpRequestService.post("/user/", { user });
 
   return result;

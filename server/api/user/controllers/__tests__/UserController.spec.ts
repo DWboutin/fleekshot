@@ -9,10 +9,10 @@ import UserModel, { User } from "../../models/UserModel";
 import UserValidator from "../../validators/UserValidator";
 import UserFactory from "../../factories/UserFactory";
 import UserController from "../UserController";
-import ImageOptimizationService, {
-  ImagePaths,
-} from "../../../../services/ImageOptimizer";
+import ImageOptimizationService from "../../../../services/ImageOptimizer";
 import NoUserException from "../../exceptions/NoUserException";
+import ImagePaths from "../../../../services/ImagePaths";
+import path from "path";
 
 jest.mock("../../validators/UserValidator");
 jest.mock("../../factories/UserFactory");
@@ -269,7 +269,7 @@ describe("UserController", () => {
       expect(mockSave).toHaveBeenCalled();
       expect(imageOptimizer.minifyAvatarImage).toHaveBeenCalledWith(
         FILE,
-        ImagePaths.MinifiedProfilePicture
+        path.resolve("public", ImagePaths.MinifiedProfilePicture)
       );
       expect(UserModel.findById).toHaveBeenCalledWith(USER_ID);
       expect(userFactory.formatFromDocument).toHaveBeenCalledWith(

@@ -1,12 +1,16 @@
-import { UserSignInData, UserSignUpData } from "../dto/UserDTO";
+import {
+  UserSignInData,
+  UserSignUpData,
+  UserSignUpRawData,
+} from "../dto/UserDTO";
 import { UserFactory } from "../factories/UserFactory";
 
 import UserModel from "../models/UserModel";
 import UserValidator from "../validators/UserValidator";
-import ImageOptimizationService, {
-  ImagePaths,
-} from "../../../services/ImageOptimizer";
+import ImageOptimizationService from "../../../services/ImageOptimizer";
 import NoUserException from "../exceptions/NoUserException";
+import ImagePaths from "../../../services/ImagePaths";
+import path from "path";
 
 class UserController {
   constructor(
@@ -15,7 +19,7 @@ class UserController {
     private imageOptimizer: ImageOptimizationService
   ) {}
 
-  public async create(userSignUpData: UserSignUpData) {
+  public async create(userSignUpData: UserSignUpRawData) {
     const validRawData = await this.validator.validateSignUpData(
       userSignUpData
     );
@@ -67,7 +71,7 @@ class UserController {
 
       await this.imageOptimizer.minifyAvatarImage(
         file,
-        ImagePaths.MinifiedProfilePicture
+        path.resolve("public", ImagePaths.MinifiedProfilePicture)
       );
 
       const updatedUser = await UserModel.findById(userId);

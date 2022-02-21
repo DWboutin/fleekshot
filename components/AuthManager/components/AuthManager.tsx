@@ -1,8 +1,6 @@
 import type { NextPage } from "next";
-import { useRouter } from "next/router";
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext } from "react";
 import { UserFormatted } from "../../../server/api/user/dto/UserDTO";
-import HttpRequestService from "../../../services/HttpRequestService";
 import { useAuthManager } from "../hooks/useAuthManager";
 
 export interface AuthContextProps {
@@ -10,6 +8,7 @@ export interface AuthContextProps {
   user: UserFormatted | null;
   handleAuth: (session: UserFormatted) => void;
   fetchSession: () => void;
+  handleLogout: () => void;
 }
 
 export const AuthContext = createContext<Partial<AuthContextProps>>({});
@@ -27,7 +26,7 @@ export const useAuthContext = (): Partial<AuthContextProps> => {
 const AuthManager: NextPage = ({ children }) => {
   const {
     selectors: { isAuthenticated, user },
-    actions: { handleAuth, fetchSession },
+    actions: { handleAuth, fetchSession, handleLogout },
   } = useAuthManager();
 
   return (
@@ -37,6 +36,7 @@ const AuthManager: NextPage = ({ children }) => {
         user,
         handleAuth,
         fetchSession,
+        handleLogout,
       }}
     >
       {children}

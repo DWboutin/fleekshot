@@ -12,7 +12,7 @@ import { SignUpFormIntlId } from "../../SignUpForm/intl/type";
 
 interface ContainerProps {}
 
-const Container = styled.div<ContainerProps>`
+export const Container = styled.div<ContainerProps>`
   text-align: center;
 
   a,

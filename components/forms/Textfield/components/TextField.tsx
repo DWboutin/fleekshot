@@ -138,6 +138,7 @@ const TextField: React.VoidFunctionComponent<Props> = ({
           onChange={onChange || handleOnChange}
           onFocus={handleOnFocus}
           onBlur={handleOnBlur}
+          autoComplete="off"
         />
         {!!error && (
           <ErrorIcon title={intl.formatMessage({ id: error })}>

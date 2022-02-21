@@ -1,5 +1,6 @@
 import type { AppProps } from "next/app";
 import { ThemeProvider } from "styled-components";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 import "normalize.css";
 import "boxicons/css/boxicons.css";
@@ -19,16 +20,26 @@ type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
+
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page);
 
   return (
-    <ThemeProvider theme={theme}>
-      <GlobalStyle />
-      <IntlManager>
-        <AuthManager>{getLayout(<Component {...pageProps} />)}</AuthManager>
-      </IntlManager>
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        <IntlManager>
+          <AuthManager>{getLayout(<Component {...pageProps} />)}</AuthManager>
+        </IntlManager>
+      </ThemeProvider>
+    </QueryClientProvider>
   );
 }
 

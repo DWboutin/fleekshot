@@ -1,4 +1,5 @@
 import { HttpErrorsIntlFlatten } from "../../../services/intl/type";
+import { PostFormIntlFlatten } from "../../PostForm/intl/type";
 import { ProfileIntlFlatten } from "../../Profile/intl/type";
 import { SignInFormIntlFlatten } from "../../SignInForm/intl/type";
 import { SignUpFormIntlFlatten } from "../../SignUpForm/intl/type";
@@ -14,4 +15,5 @@ export interface IntlMessages extends Record<string, any> {
   signInForm: SignInFormIntlFlatten;
   profile: ProfileIntlFlatten;
   httpErrors: HttpErrorsIntlFlatten;
+  postForm: PostFormIntlFlatten;
 }

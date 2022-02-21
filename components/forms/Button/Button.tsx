@@ -1,23 +1,27 @@
-import React, { ReactNode, SyntheticEvent } from "react";
+import React, { forwardRef, ReactNode, SyntheticEvent } from "react";
 import styled from "styled-components";
 
 import { ThemeContainer } from "../../../styles/styles";
 import { toREM } from "../../../styles/typography";
 import Boxicon from "../../BoxIcons/BoxIcons";
 
-interface ContainerProps {}
+interface ContainerProps extends ThemeContainer {
+  transparent: boolean;
+}
 
-const Container = styled.button<ContainerProps>`
+export const Container = styled.button<ContainerProps>`
   position: relative;
   font-size: ${toREM(14)};
   border: 0;
   padding: 5px 9px;
   font-weight: 600;
 
-  ${({ theme }: ThemeContainer) => `
-    background-color: ${theme.forms.button.bg};
+  ${({ theme, transparent }: ContainerProps) => `
+    background-color: ${!transparent ? theme.forms.button.bg : "transparent"};
     border-radius: ${theme.forms.button.borderRadius};
-    color: ${theme.forms.button.color};
+    color: ${
+      !transparent ? theme.forms.button.color : theme.post.message.color
+    };
   `}
 
   &>.bx {
@@ -28,10 +32,12 @@ const Container = styled.button<ContainerProps>`
   }
 
   &:hover:not(:disabled) {
-    background-color: ${({ theme }: ThemeContainer) =>
-      theme.forms.button.hoverBg};
+    background-color: ${({ theme, transparent }: ContainerProps) =>
+      !transparent ? theme.forms.button.hoverBg : "transparent"};
+    ${({ theme, transparent }: ContainerProps) =>
+      transparent && `color: ${theme.forms.button.bg}`};
   }
-  &:active {
+  &:active:not(:disabled) {
     background-color: ${({ theme }: ThemeContainer) =>
       theme.forms.button.activeBg};
   }
@@ -49,21 +55,38 @@ export interface Props {
   disabled?: boolean;
   isLoading?: boolean;
   onClick?: (e: SyntheticEvent<HTMLButtonElement>) => void;
+  transparent?: boolean;
 }
 
-const Button: React.VoidFunctionComponent<Props> = ({
-  children,
-  type = "button",
-  disabled,
-  isLoading,
-  onClick,
-}) => {
-  return (
-    <Container type={type} onClick={onClick} disabled={disabled}>
-      <span>{children}</span>
-      {isLoading && <Boxicon name="loader-alt" animation="spin" />}
-    </Container>
-  );
-};
+const Button: React.VoidFunctionComponent<Props> = forwardRef<
+  HTMLButtonElement,
+  Props
+>(
+  (
+    {
+      children,
+      type = "button",
+      disabled,
+      isLoading,
+      onClick,
+      transparent = false,
+    },
+    ref
+  ) => {
+    return (
+      <Container
+        ref={ref}
+        type={type}
+        onClick={onClick}
+        disabled={disabled}
+        transparent={transparent}
+      >
+        <span>{children}</span>
+        {isLoading && <Boxicon name="loader-alt" animation="spin" />}
+      </Container>
+    );
+  }
+);
+Button.displayName = "Button";
 
 export default Button;

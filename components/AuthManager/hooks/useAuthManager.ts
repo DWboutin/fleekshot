@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { UserFormatted } from "../../../server/api/user/dto/UserDTO";
 import { RequestResponse } from "../../../server/handler/ResponseHandler";
@@ -9,8 +10,9 @@ export interface AuthManagerSelectors {
 }
 
 export interface AuthManagerActions {
-  handleAuth: (session: RequestResponse<UserFormatted>) => void;
+  handleAuth: (session: UserFormatted) => void;
   fetchSession: () => void;
+  handleLogout: () => void;
 }
 
 export interface AuthManagerHook {
@@ -21,22 +23,29 @@ export interface AuthManagerHook {
 export function useAuthManager(): AuthManagerHook {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState<UserFormatted | null>(null);
+  const router = useRouter();
 
   const fetchSession = async () => {
     const session = await HttpRequestService.get("/user/");
 
-    handleAuth(session);
+    if (session?.success) {
+      handleAuth(session.data);
+    }
   };
 
-  const handleAuth = (session: RequestResponse<UserFormatted>) => {
-    if (session?.success) {
-      setIsAuthenticated(true);
-      setUser(session.data);
-    }
+  const handleAuth = (session: UserFormatted) => {
+    setIsAuthenticated(true);
+    setUser(session);
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(true);
+    setUser(null);
+    router.push("/account/sign-in");
   };
 
   return {
     selectors: { isAuthenticated, user },
-    actions: { handleAuth, fetchSession },
+    actions: { handleAuth, fetchSession, handleLogout },
   };
 }

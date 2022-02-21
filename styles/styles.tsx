@@ -22,6 +22,10 @@ export interface Theme {
   header: {
     bg: string;
     border: string;
+    link: {
+      color: string;
+      hoverColor: string;
+    };
     profile: {
       bg: string;
     };
@@ -58,6 +62,19 @@ export interface Theme {
       activeBg: string;
     };
   };
+  post: {
+    bg: string;
+    border: string;
+    borderRadius: string;
+    author: {
+      usernameColor: string;
+      nameColor: string;
+      imageBg: string;
+    };
+    message: {
+      color: string;
+    };
+  };
   layout: {
     page: {
       width: string;
@@ -85,6 +102,10 @@ export const theme: Theme = {
   header: {
     bg: colors.white,
     border: colors.grey,
+    link: {
+      color: colors.black,
+      hoverColor: colors.blue,
+    },
     profile: {
       bg: colors.grey2,
     },
@@ -120,6 +141,17 @@ export const theme: Theme = {
       borderRadius: "3px",
       color: colors.white,
     },
+  },
+  post: {
+    bg: colors.white,
+    border: colors.grey,
+    borderRadius: "3px",
+    author: {
+      usernameColor: colors.black,
+      nameColor: colors.grey2,
+      imageBg: colors.grey2,
+    },
+    message: { color: colors.black },
   },
   layout: {
     page: {

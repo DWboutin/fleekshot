@@ -2,7 +2,6 @@ import React, { useRef } from "react";
 import { FormattedMessage } from "react-intl";
 import styled from "styled-components";
 import Button from "../../forms/Button/Button";
-import { ProfileIntlId } from "../intl/type";
 
 interface ContainerProps {}
 
@@ -13,11 +12,13 @@ const Container = styled.div<ContainerProps>`
 `;
 
 interface Props {
+  buttonLabel: string;
   inputName: string;
   handleChange: (values: File[]) => void;
 }
 
-const ProfilPictureUpload: React.VoidFunctionComponent<Props> = ({
+const UploadField: React.VoidFunctionComponent<Props> = ({
+  buttonLabel,
   inputName,
   handleChange,
 }) => {
@@ -34,7 +35,7 @@ const ProfilPictureUpload: React.VoidFunctionComponent<Props> = ({
   return (
     <Container>
       <Button type="button" onClick={handleFileInputClick}>
-        <FormattedMessage id={ProfileIntlId.profile_uploadPicture} />
+        {buttonLabel}
       </Button>
       <input
         ref={fileInputRef}
@@ -46,4 +47,4 @@ const ProfilPictureUpload: React.VoidFunctionComponent<Props> = ({
   );
 };
 
-export default ProfilPictureUpload;
+export default UploadField;

@@ -1,7 +1,13 @@
 import { Document } from "mongoose";
 import { User } from "../models/UserModel";
 
-export interface UserSignUpData extends User {
+export interface UserSignUpData {
+  name: string;
+  username: string;
+  password: string;
+}
+
+export interface UserSignUpRawData extends UserSignUpData {
   confirmPassword: string;
 }
 
