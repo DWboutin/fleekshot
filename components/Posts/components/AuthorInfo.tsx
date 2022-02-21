@@ -59,13 +59,18 @@ const AuthorInfo: React.VoidFunctionComponent<Props> = ({
   return (
     <Container>
       <AuthorImageContainer>
-        <Image
-          src={path.resolve(ImagePaths.MinifiedProfilePicture, profilePicture)}
-          alt="Profile picture"
-          layout="responsive"
-          width="400"
-          height="400"
-        />
+        {profilePicture && (
+          <Image
+            src={path.resolve(
+              ImagePaths.MinifiedProfilePicture,
+              profilePicture
+            )}
+            alt="Profile picture"
+            layout="responsive"
+            width="400"
+            height="400"
+          />
+        )}
       </AuthorImageContainer>
       <AuthorProfile>
         <AuthorUsername>@{username}</AuthorUsername>
