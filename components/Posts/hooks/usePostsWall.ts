@@ -32,22 +32,24 @@ const fetchPosts = ({ pageParam = 0 }) =>
 export function usePostsWall(): PostsWallHook {
   const dispatch = useAppDispatch();
   const posts = useAppSelector(selectPosts);
-  const {
-    data = { pages: [], pageParams: [] },
-    fetchNextPage,
-    hasNextPage,
-    isFetching,
-  } = useInfiniteQuery("posts", fetchPosts, {
-    getPreviousPageParam: (firstPage) => firstPage.data.lastCursor ?? false,
-    getNextPageParam: (lastPage) => lastPage.data.nextCursor ?? false,
-  });
+  const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteQuery(
+    "posts",
+    fetchPosts,
+    {
+      getPreviousPageParam: (firstPage) => firstPage.data.lastCursor ?? false,
+      getNextPageParam: (lastPage) => lastPage.data.nextCursor ?? false,
+    }
+  );
 
   useEffect(() => {
+    console.log({ data });
     const posts: PostFormatted[] = [];
 
-    data.pages.forEach((page) => {
-      posts.push(...page.data.posts);
-    });
+    if (data) {
+      data.pages.forEach((page) => {
+        posts.push(...page.data.posts);
+      });
+    }
 
     dispatch(loadPosts(posts));
   }, [data]);
