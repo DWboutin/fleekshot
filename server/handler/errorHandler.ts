@@ -71,6 +71,9 @@ const errorHandler = (
     if (err.name === "NoUser") {
       return handleNoUserError(err as NoUserException, res);
     }
+    return res
+      .status(500)
+      .send({ success: false, messages: `An unknown error occured.`, err });
   } catch (err) {
     return res
       .status(500)

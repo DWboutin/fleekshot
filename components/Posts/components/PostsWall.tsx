@@ -8,6 +8,7 @@ import Button from "../../forms/Button/Button";
 import Post from "./Post";
 import { PostFormatted } from "../../../server/api/post/dto/PostDTO";
 import { UserFormatted } from "../../../server/api/user/dto/UserDTO";
+import { usePostsWall } from "../hooks/usePostsWall";
 
 interface ContainerProps {}
 
@@ -24,23 +25,11 @@ const ButtonContainer = styled.div<ContainerProps>`
 interface Props {}
 
 const PostsWall: React.VoidFunctionComponent<Props> = ({}) => {
-  const fetchPosts = ({ pageParam = 0 }) =>
-    HttpRequestService.get(`/post/?cursor=${pageParam}`);
-
-  const loadMoreButtonRef = useRef<HTMLElement>();
-
   const {
-    data = { pages: [], pageParams: [] },
-    error,
-    fetchNextPage,
-    hasNextPage,
-    isFetching,
-    isFetchingNextPage,
-    status,
-  } = useInfiniteQuery("posts", fetchPosts, {
-    getPreviousPageParam: (firstPage) => firstPage.data.lastCursor ?? false,
-    getNextPageParam: (lastPage) => lastPage.data.nextCursor ?? false,
-  });
+    selectors: { posts, hasNextPage, isFetching },
+    actions: { fetchNextPage },
+  } = usePostsWall();
+  const loadMoreButtonRef = useRef<HTMLElement>();
 
   useIntersectionObserver({
     target: loadMoreButtonRef,
@@ -50,19 +39,13 @@ const PostsWall: React.VoidFunctionComponent<Props> = ({}) => {
 
   return (
     <Container>
-      {data.pages.map((page) => (
-        <React.Fragment key={page.data.nextCursor}>
-          {page.data.posts.map(
-            ({ id, image, author, message }: PostFormatted) => (
-              <Post
-                image={image}
-                key={id}
-                author={author as UserFormatted}
-                message={message}
-              />
-            )
-          )}
-        </React.Fragment>
+      {posts.map(({ id, image, author, message }: PostFormatted) => (
+        <Post
+          image={image}
+          key={id}
+          author={author as UserFormatted}
+          message={message}
+        />
       ))}
       {hasNextPage && (
         <ButtonContainer>

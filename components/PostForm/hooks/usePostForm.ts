@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useQueryClient } from "react-query";
 import { PostData } from "../../../server/api/post/dto/PostDTO";
 import HttpRequestService from "../../../services/HttpRequestService";
 
@@ -28,6 +29,7 @@ const createPost = async (image: File, post: PostData) => {
 };
 
 export function usePostForm(): PostFormHook {
+  const queryClient = useQueryClient();
   const [isCreating, setIsCreating] = useState(false);
   const [localImage, setLocalImage] = useState<string | null>(null);
 
@@ -38,6 +40,8 @@ export function usePostForm(): PostFormHook {
   ) => {
     setIsCreating(true);
     await createPost(image, message);
+    queryClient.invalidateQueries("posts");
+
     setIsCreating(false);
     setLocalImage(null);
     resetCallback();
