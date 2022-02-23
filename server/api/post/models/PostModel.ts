@@ -1,5 +1,6 @@
 import mongoose, { ObjectId } from "mongoose";
 import { UserDocument } from "../../user/dto/UserDTO";
+import UserModel from "../../user/models/UserModel";
 
 const Schema = mongoose.Schema;
 
@@ -19,8 +20,6 @@ const postSchema = new Schema({
   author: { type: Schema.Types.ObjectId, ref: "User" },
 });
 
-const PostModel = mongoose.model<Post>("Post", postSchema);
-
 postSchema.pre("save", function (next) {
   if (this.isNew) {
     this.createdAt = new Date();
@@ -30,5 +29,7 @@ postSchema.pre("save", function (next) {
 
   next();
 });
+
+const PostModel = mongoose.model<Post>("Post", postSchema);
 
 export default PostModel;

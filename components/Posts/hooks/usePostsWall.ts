@@ -3,11 +3,12 @@ import {
   FetchNextPageOptions,
   InfiniteQueryObserverResult,
   useInfiniteQuery,
+  useQueryClient,
 } from "react-query";
 import { PostFormatted } from "../../../server/api/post/dto/PostDTO";
 import HttpRequestService from "../../../services/HttpRequestService";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
-import { addPosts, loadPosts, selectPosts } from "../store/postsSlice";
+import { loadPosts, selectPosts } from "../store/postsSlice";
 
 export interface PostsWallSelectors {
   posts: PostFormatted[];
@@ -19,6 +20,7 @@ export interface PostsWallActions {
   fetchNextPage: (
     options?: FetchNextPageOptions | undefined
   ) => Promise<InfiniteQueryObserverResult<any, unknown>>;
+  deletePost: (postId: string) => void;
 }
 
 export interface PostsWallHook {
@@ -29,8 +31,15 @@ export interface PostsWallHook {
 const fetchPosts = ({ pageParam = 0 }) =>
   HttpRequestService.get(`/post/?cursor=${pageParam}`);
 
+const deletePostRequest = async (postId: string) => {
+  const result = await HttpRequestService.delete(`/post/${postId}`);
+
+  return result;
+};
+
 export function usePostsWall(): PostsWallHook {
   const dispatch = useAppDispatch();
+  const queryClient = useQueryClient();
   const posts = useAppSelector(selectPosts);
   const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteQuery(
     "posts",
@@ -41,8 +50,12 @@ export function usePostsWall(): PostsWallHook {
     }
   );
 
+  const deletePost = async (postId: string) => {
+    await deletePostRequest(postId);
+    queryClient.invalidateQueries("posts");
+  };
+
   useEffect(() => {
-    console.log({ data });
     const posts: PostFormatted[] = [];
 
     if (data) {
@@ -56,6 +69,6 @@ export function usePostsWall(): PostsWallHook {
 
   return {
     selectors: { posts, hasNextPage, isFetching },
-    actions: { fetchNextPage },
+    actions: { fetchNextPage, deletePost },
   };
 }

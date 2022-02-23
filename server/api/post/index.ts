@@ -90,4 +90,22 @@ routes.get("/", async (req: Request, res: Response, next: NextFunction) => {
   }
 });
 
+routes.delete(
+  "/:postId",
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const postId = req.params.postId;
+
+      if (postId && req.session.user) {
+        const posts = await postController.delete(postId, req.session.user.id);
+
+        return ResponseHandler.build(res, 200, posts);
+      }
+      return ResponseHandler.build(res, 200, {});
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
 export default routes;

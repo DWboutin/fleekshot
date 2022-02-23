@@ -6,6 +6,8 @@ import { UserFormatted } from "../../../server/api/user/dto/UserDTO";
 import ImagePaths from "../../../server/services/ImagePaths";
 import { ThemeContainer } from "../../../styles/styles";
 import { fonts } from "../../../styles/typography";
+import Boxicon from "../../BoxIcons/BoxIcons";
+import Button from "../../forms/Button/Button";
 import AuthorInfo from "./AuthorInfo";
 
 interface ContainerProps {}
@@ -18,6 +20,13 @@ const Container = styled.div<ContainerProps>`
     border: 1px solid ${theme.post.border};
     border-radius: ${theme.post.borderRadius};
   `}
+`;
+
+const Header = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 20px;
 `;
 
 const ImageContainer = styled.div<ContainerProps>`
@@ -38,22 +47,31 @@ interface Props {
   image: string;
   author: UserFormatted;
   message: string;
+  isOwned: boolean;
+  deletePost: () => void;
 }
 
 const Post: React.VoidFunctionComponent<Props> = ({
   image,
   author: { name, username, profilePicture },
   message,
+  isOwned,
+  deletePost,
 }) => {
   return (
     <Container>
-      <div>
+      <Header>
         <AuthorInfo
           name={name}
           username={username}
           profilePicture={profilePicture as string}
         />
-      </div>
+        {isOwned && (
+          <Button onClick={deletePost} transparent>
+            <Boxicon name="trash" />
+          </Button>
+        )}
+      </Header>
       <ImageContainer>
         <Image
           src={path.resolve(ImagePaths.PostPicture, image)}
