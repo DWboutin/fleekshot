@@ -13,7 +13,6 @@ const Container = styled.div<ContainerProps>`
   flex: 1;
   flex-direction: row;
   align-items: center;
-  margin-bottom: 20px;
 `;
 
 const AuthorImageContainer = styled.div`

@@ -2,6 +2,7 @@ import { ObjectId } from "mongoose";
 import NoUserException from "../../user/exceptions/NoUserException";
 import UserModel from "../../user/models/UserModel";
 import { PostData, PostDocument } from "../dto/PostDTO";
+import NoPermissionException from "../exceptions/NoPermissionException";
 import { PostFactory } from "../factories/PostFactory";
 import PostModel from "../models/PostModel";
 import PostValidator from "../validators/PostValidator";
@@ -66,6 +67,26 @@ class PostController {
       previousCursor: cursor > 0 ? cursor - 1 : null,
       nextCursor: cursor + 1 * limit < postsCount ? cursor + 1 : null,
     };
+  }
+
+  public async delete(postId: string, userId: string) {
+    const post = await PostModel.findOne({ _id: postId });
+
+    if (post && post.author.toString() === userId) {
+      await PostModel.findByIdAndDelete(postId);
+      await UserModel.findOneAndUpdate(
+        { _id: userId },
+        {
+          $pullAll: {
+            posts: [{ _id: postId }],
+          },
+        }
+      );
+
+      return {};
+    }
+
+    throw new NoPermissionException();
   }
 }
 

@@ -22,6 +22,20 @@ class HttpRequestService {
     return response.json();
   }
 
+  static async delete(endpoint: string) {
+    const response = await fetch(`${API_URL}${endpoint}`, {
+      method: "DELETE",
+      mode: "cors",
+      cache: "no-cache",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+
+    return response.json();
+  }
+
   static async upload(endpoint: string, files: any, data: any = {}) {
     const formData = new FormData();
 

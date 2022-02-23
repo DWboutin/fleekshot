@@ -9,6 +9,7 @@ import Post from "./Post";
 import { PostFormatted } from "../../../server/api/post/dto/PostDTO";
 import { UserFormatted } from "../../../server/api/user/dto/UserDTO";
 import { usePostsWall } from "../hooks/usePostsWall";
+import { useAuthContext } from "../../AuthManager/components/AuthManager";
 
 interface ContainerProps {}
 
@@ -25,9 +26,10 @@ const ButtonContainer = styled.div<ContainerProps>`
 interface Props {}
 
 const PostsWall: React.VoidFunctionComponent<Props> = ({}) => {
+  const { user } = useAuthContext();
   const {
     selectors: { posts, hasNextPage, isFetching },
-    actions: { fetchNextPage },
+    actions: { fetchNextPage, deletePost },
   } = usePostsWall();
   const loadMoreButtonRef = useRef<HTMLElement>();
 
@@ -41,10 +43,12 @@ const PostsWall: React.VoidFunctionComponent<Props> = ({}) => {
     <Container>
       {posts.map(({ id, image, author, message }: PostFormatted) => (
         <Post
-          image={image}
           key={id}
+          image={image}
           author={author as UserFormatted}
           message={message}
+          isOwned={user?.id === author?.id}
+          deletePost={() => deletePost(id)}
         />
       ))}
       {hasNextPage && (
